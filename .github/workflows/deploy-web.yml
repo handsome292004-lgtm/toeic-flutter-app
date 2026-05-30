@@ -1,0 +1,56 @@
+name: Deploy TOEIC Web App
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Check files
+        run: |
+          test -f pubspec.yaml
+          test -f lib/main.dart
+          test -f assets/vocabulary.json
+          test -f assets/grammar_part5.json
+
+      - name: Create clean Flutter web project
+        run: |
+          flutter create --platforms=web toeic_web_app
+
+      - name: Copy app source
+        run: |
+          rm -rf toeic_web_app/lib
+          rm -rf toeic_web_app/assets
+          cp -r lib toeic_web_app/lib
+          cp -r assets toeic_web_app/assets
+          cp pubspec.yaml toeic_web_app/pubspec.yaml
+
+      - name: Install dependencies
+        working-directory: toeic_web_app
+        run: flutter pub get
+
+      - name: Build web
+        working-directory: toeic_web_app
+        run: flutter build web --release --base-href /toeic-flutter-app/
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: toeic_web_app/build/web
