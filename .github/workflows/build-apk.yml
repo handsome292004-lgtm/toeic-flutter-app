@@ -26,17 +26,37 @@ jobs:
         with:
           channel: stable
 
-      - name: Check Flutter version
-        run: flutter --version
+      - name: Check files
+        run: |
+          echo "Danh sách file trong repo:"
+          find . -maxdepth 3 -type f
+          test -f pubspec.yaml
+          test -f lib/main.dart
+          test -f assets/vocabulary.json
+          test -f assets/grammar_part5.json
+
+      - name: Create clean Flutter project
+        run: |
+          flutter create --platforms=android toeic_build_app
+
+      - name: Copy app source
+        run: |
+          rm -rf toeic_build_app/lib
+          rm -rf toeic_build_app/assets
+          cp -r lib toeic_build_app/lib
+          cp -r assets toeic_build_app/assets
+          cp pubspec.yaml toeic_build_app/pubspec.yaml
 
       - name: Install dependencies
+        working-directory: toeic_build_app
         run: flutter pub get
 
       - name: Build debug APK
+        working-directory: toeic_build_app
         run: flutter build apk --debug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: toeic-app-apk
-          path: build/app/outputs/flutter-apk/app-debug.apk
+          path: toeic_build_app/build/app/outputs/flutter-apk/app-debug.apk
