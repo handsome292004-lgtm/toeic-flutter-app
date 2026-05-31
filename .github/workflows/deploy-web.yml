@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - master
 
 permissions:
   contents: write
@@ -22,12 +23,52 @@ jobs:
         with:
           channel: stable
 
-      - name: Check files
+      - name: Show repository files
         run: |
-          test -f pubspec.yaml
+          echo "Danh sách file hiện tại:"
+          find . -maxdepth 3 -type f
+
+      - name: Create pubspec.yaml if missing
+        run: |
+          if [ ! -f "pubspec.yaml" ]; then
+            echo "pubspec.yaml bị thiếu, đang tạo lại..."
+            cat > pubspec.yaml <<'EOF'
+          name: toeic_flutter_app
+          description: TOEIC vocabulary learning app
+          publish_to: "none"
+          version: 1.0.0+1
+
+          environment:
+            sdk: ">=3.3.0 <4.0.0"
+
+          dependencies:
+            flutter:
+              sdk: flutter
+            cupertino_icons: ^1.0.8
+            flutter_tts: ^4.0.2
+            shared_preferences: ^2.2.3
+
+          dev_dependencies:
+            flutter_test:
+              sdk: flutter
+            flutter_lints: ^4.0.0
+
+          flutter:
+            uses-material-design: true
+            assets:
+              - assets/vocabulary.json
+              - assets/grammar_part5.json
+          EOF
+          else
+            echo "Đã có pubspec.yaml"
+          fi
+
+      - name: Check required files
+        run: |
           test -f lib/main.dart
           test -f assets/vocabulary.json
           test -f assets/grammar_part5.json
+          test -f pubspec.yaml
 
       - name: Create clean Flutter web project
         run: |
