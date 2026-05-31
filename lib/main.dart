@@ -104,38 +104,34 @@ class _HomePageState extends State<HomePage> {
     _boot();
   }
 
-  Future<void> _boot() async {
-    await _tts.setLanguage('en-US');
-    await _tts.setSpeechRate(0.45);
-    await _tts.setPitch(1.0);
+  final FlutterTts flutterTts = FlutterTts();
 
-    final vocabRaw = await rootBundle.loadString('assets/vocabulary.json');
-    final vocabData = jsonDecode(vocabRaw) as List<dynamic>;
-    final words = vocabData
-        .map((e) => VocabWord.fromJson(e as Map<String, dynamic>))
-        .where((w) => w.english.trim().isNotEmpty && w.vietnamese.trim().isNotEmpty)
-        .toList();
+Future<void> setupTts() async {
+  await flutterTts.setLanguage("en-US");
+  await flutterTts.setSpeechRate(0.42);
+  await flutterTts.setVolume(1.0);
+  await flutterTts.setPitch(1.0);
+  await flutterTts.awaitSpeakCompletion(false);
+}
 
-    final grammarRaw = await rootBundle.loadString('assets/grammar_part5.json');
-    final grammarData = jsonDecode(grammarRaw) as List<dynamic>;
-    final grammar = grammarData
-        .map((e) => GrammarQuestion.fromJson(e as Map<String, dynamic>))
-        .where((q) => q.question.trim().isNotEmpty && q.options.length >= 4)
-        .toList();
+Future<void> speak(String text) async {
+  final word = text.trim();
 
-    final prefs = await SharedPreferences.getInstance();
-    final countsRaw = prefs.getString('correctCounts') ?? '{}';
-    final countsDecoded = jsonDecode(countsRaw) as Map<String, dynamic>;
+  if (word.isEmpty) return;
 
-    setState(() {
-      _allWords = words;
-      _grammarQuestions = grammar;
-      _score = prefs.getInt('score') ?? 100;
-      _correctCounts = countsDecoded.map((k, v) => MapEntry(k, (v as num).toInt()));
-      _loading = false;
-    });
+  try {
+    await flutterTts.stop();
+
+    await flutterTts.setLanguage("en-US");
+    await flutterTts.setSpeechRate(0.42);
+    await flutterTts.setVolume(1.0);
+    await flutterTts.setPitch(1.0);
+
+    await flutterTts.speak(word);
+  } catch (e) {
+    debugPrint("TTS error: $e");
   }
-
+}
   List<String> get _topics {
     final set = _allWords.map((w) => w.topic).toSet().toList()..sort();
     return ['Tất cả', ...set];
