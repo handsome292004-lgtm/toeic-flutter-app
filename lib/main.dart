@@ -100,6 +100,9 @@ class _HomePageState extends State<HomePage> {
   bool _loading = true;
   bool _ttsReady = false;
 
+  double _speechRate = kIsWeb ? 0.62 : 0.35;
+  String _speechMode = 'Slow';
+
   @override
   void initState() {
     super.initState();
@@ -158,24 +161,28 @@ class _HomePageState extends State<HomePage> {
       await _tts.setLanguage('en-US');
       await _tts.setVolume(1.0);
       await _tts.setPitch(1.0);
+      await _tts.setSpeechRate(_speechRate);
 
-      // Flutter Web/iPhone Safari dùng Web Speech API, tốc độ đọc phù hợp khác Android.
-      await _tts.setSpeechRate(kIsWeb ? 0.85 : 0.45);
-
-      // Cố gắng chọn giọng tiếng Anh nếu thiết bị/trình duyệt trả về danh sách giọng đọc.
       final voices = await _tts.getVoices;
       if (voices is List && voices.isNotEmpty) {
         Map<dynamic, dynamic>? selectedVoice;
+
         for (final voice in voices) {
           if (voice is Map) {
             final locale = (voice['locale'] ?? voice['language'] ?? '').toString().toLowerCase();
             final name = (voice['name'] ?? '').toString().toLowerCase();
-            if (locale.startsWith('en-us') || name.contains('english')) {
+
+            if (locale.startsWith('en-us') ||
+                locale.startsWith('en') ||
+                name.contains('english') ||
+                name.contains('samantha') ||
+                name.contains('alex')) {
               selectedVoice = voice;
               break;
             }
           }
         }
+
         if (selectedVoice != null && selectedVoice['name'] != null) {
           await _tts.setVoice({
             'name': selectedVoice['name'].toString(),
@@ -204,9 +211,8 @@ class _HomePageState extends State<HomePage> {
       await _tts.setLanguage('en-US');
       await _tts.setVolume(1.0);
       await _tts.setPitch(1.0);
-      await _tts.setSpeechRate(kIsWeb ? 0.85 : 0.45);
+      await _tts.setSpeechRate(_speechRate);
 
-      // Delay rất ngắn giúp iPhone/Safari ổn định hơn khi bấm liên tục nhiều từ.
       await Future<void>.delayed(const Duration(milliseconds: 80));
       await _tts.speak(cleanText);
     } catch (e) {
@@ -251,14 +257,23 @@ class _HomePageState extends State<HomePage> {
         title: const Text('Xóa tiến độ?'),
         content: const Text('Điểm số và số lần đúng của các từ sẽ trở về ban đầu.'),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(context, false), child: const Text('Hủy')),
-          FilledButton(onPressed: () => Navigator.pop(context, true), child: const Text('Xóa')),
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Hủy'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('Xóa'),
+          ),
         ],
       ),
     );
+
     if (ok != true) return;
+
     final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
+
     setState(() {
       _score = 100;
       _correctCounts = {};
@@ -318,7 +333,10 @@ class _HomePageState extends State<HomePage> {
           Center(
             child: Padding(
               padding: const EdgeInsets.only(right: 12),
-              child: Text('⭐ $_score', style: const TextStyle(fontWeight: FontWeight.bold)),
+              child: Text(
+                '⭐ $_score',
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
             ),
           ),
           IconButton(
@@ -337,7 +355,25 @@ class _HomePageState extends State<HomePage> {
                 topic: _topic,
                 topics: _topics,
                 count: _activeWords.length,
-                onChanged: (value) => setState(() => _topic = value ?? 'Tất cả'),
+                onChanged: (value) {
+                  setState(() {
+                    _topic = value;
+                  });
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 6),
+              child: SpeechSpeedPicker(
+                mode: _speechMode,
+                onChanged: (mode) {
+                  setState(() {
+                    _speechMode = mode;
+                    _speechRate = mode == 'Slow'
+                        ? (kIsWeb ? 0.62 : 0.35)
+                        : (kIsWeb ? 0.85 : 0.50);
+                  });
+                },
               ),
             ),
             Expanded(child: pages[_tabIndex]),
@@ -362,13 +398,175 @@ class TopicPicker extends StatelessWidget {
   final String topic;
   final List<String> topics;
   final int count;
-  final ValueChanged<String?> onChanged;
+  final ValueChanged<String> onChanged;
 
   const TopicPicker({
     super.key,
     required this.topic,
     required this.topics,
     required this.count,
+    required this.onChanged,
+  });
+
+  Future<void> _openTopicDialog(BuildContext context) async {
+    final TextEditingController searchController = TextEditingController();
+    List<String> filteredTopics = List<String>.from(topics);
+
+    final selected = await showDialog<String>(
+      context: context,
+      builder: (dialogContext) {
+        return StatefulBuilder(
+          builder: (context, setDialogState) {
+            return AlertDialog(
+              title: const Text(
+                'Chọn Topic',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              content: SizedBox(
+                width: double.maxFinite,
+                height: 420,
+                child: Column(
+                  children: [
+                    TextField(
+                      controller: searchController,
+                      decoration: const InputDecoration(
+                        prefixIcon: Icon(Icons.search_rounded),
+                        hintText: 'Tìm topic...',
+                        border: OutlineInputBorder(),
+                      ),
+                      onChanged: (value) {
+                        final keyword = value.trim().toLowerCase();
+
+                        setDialogState(() {
+                          filteredTopics = topics
+                              .where(
+                                (topicName) => topicName.toLowerCase().contains(keyword),
+                              )
+                              .toList();
+                        });
+                      },
+                    ),
+                    const SizedBox(height: 12),
+                    Expanded(
+                      child: filteredTopics.isEmpty
+                          ? const Center(
+                              child: Text('Không tìm thấy topic phù hợp'),
+                            )
+                          : ListView.separated(
+                              itemCount: filteredTopics.length,
+                              separatorBuilder: (_, __) => const Divider(height: 1),
+                              itemBuilder: (context, index) {
+                                final item = filteredTopics[index];
+                                final isSelected = item == topic;
+
+                                return ListTile(
+                                  title: Text(
+                                    item,
+                                    style: TextStyle(
+                                      fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                                    ),
+                                  ),
+                                  leading: Icon(
+                                    isSelected
+                                        ? Icons.radio_button_checked_rounded
+                                        : Icons.radio_button_off_rounded,
+                                    color: isSelected ? Theme.of(context).colorScheme.primary : null,
+                                  ),
+                                  trailing: isSelected
+                                      ? Icon(
+                                          Icons.check_rounded,
+                                          color: Theme.of(context).colorScheme.primary,
+                                        )
+                                      : null,
+                                  onTap: () {
+                                    Navigator.of(dialogContext).pop(item);
+                                  },
+                                );
+                              },
+                            ),
+                    ),
+                  ],
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(dialogContext).pop();
+                  },
+                  child: const Text('Hủy'),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+
+    searchController.dispose();
+
+    if (selected != null && selected != topic) {
+      onChanged(selected);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: InkWell(
+        borderRadius: BorderRadius.circular(20),
+        onTap: () => _openTopicDialog(context),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+          child: Row(
+            children: [
+              const Icon(Icons.topic_rounded),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Topic đang học',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.black54,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      topic,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 10),
+              Text(
+                '$count từ',
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(width: 8),
+              const Icon(Icons.keyboard_arrow_down_rounded),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class SpeechSpeedPicker extends StatelessWidget {
+  final String mode;
+  final ValueChanged<String> onChanged;
+
+  const SpeechSpeedPicker({
+    super.key,
+    required this.mode,
     required this.onChanged,
   });
 
@@ -379,20 +577,34 @@ class TopicPicker extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
         child: Row(
           children: [
-            const Icon(Icons.topic_rounded),
+            const Icon(Icons.record_voice_over_rounded),
             const SizedBox(width: 10),
-            Expanded(
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton<String>(
-                  value: topic,
-                  isExpanded: true,
-                  items: topics.map((t) => DropdownMenuItem(value: t, child: Text(t))).toList(),
-                  onChanged: onChanged,
-                ),
+            const Expanded(
+              child: Text(
+                'Tốc độ phát âm',
+                style: TextStyle(fontWeight: FontWeight.w600),
               ),
             ),
-            const SizedBox(width: 10),
-            Text('$count từ', style: const TextStyle(fontWeight: FontWeight.bold)),
+            SegmentedButton<String>(
+              segments: const [
+                ButtonSegment(
+                  value: 'Slow',
+                  label: Text('Slow'),
+                  icon: Icon(Icons.slow_motion_video_rounded),
+                ),
+                ButtonSegment(
+                  value: 'Fast',
+                  label: Text('Fast'),
+                  icon: Icon(Icons.speed_rounded),
+                ),
+              ],
+              selected: {mode},
+              onSelectionChanged: (values) {
+                if (values.isNotEmpty) {
+                  onChanged(values.first);
+                }
+              },
+            ),
           ],
         ),
       ),
@@ -425,11 +637,15 @@ class LearnScreen extends StatelessWidget {
         final w = words[index];
         final count = correctCounts[w.english] ?? 0;
         final learned = count >= 5;
+
         return Card(
           margin: const EdgeInsets.only(bottom: 12),
           child: ListTile(
             contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-            title: Text(w.english, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            title: Text(
+              w.english,
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
             subtitle: Padding(
               padding: const EdgeInsets.only(top: 6),
               child: Column(
@@ -489,8 +705,15 @@ class _QuizScreenState extends State<QuizScreen> {
     _next();
   }
 
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   void _next() {
     if (widget.words.isEmpty) return;
+
     setState(() {
       _current = widget.words[widget.random.nextInt(widget.words.length)];
       _controller.clear();
@@ -502,9 +725,13 @@ class _QuizScreenState extends State<QuizScreen> {
   void _hint() {
     final ans = _current?.english.trim() ?? '';
     final current = _controller.text;
+
     if (current.length < ans.length) {
       _controller.text = current + ans[current.length];
-      _controller.selection = TextSelection.fromPosition(TextPosition(offset: _controller.text.length));
+      _controller.selection = TextSelection.fromPosition(
+        TextPosition(offset: _controller.text.length),
+      );
+
       setState(() {
         _message = '💡 Đã gợi ý thêm 1 chữ cái';
         _messageColor = Colors.blueGrey;
@@ -515,23 +742,28 @@ class _QuizScreenState extends State<QuizScreen> {
   void _check() {
     final word = _current;
     if (word == null) return;
+
     final user = _controller.text.trim().toLowerCase();
     final ans = word.english.trim().toLowerCase();
 
     if (user == ans) {
       widget.onCorrect(word);
       widget.onSpeak(word.english);
+
       setState(() {
         _message = '🎉 Chính xác! +1 điểm';
         _messageColor = Colors.green;
       });
+
       Future.delayed(const Duration(milliseconds: 900), _next);
     } else {
       widget.onWrong();
+
       setState(() {
         _message = "❌ Sai rồi! Đáp án: ${word.english}";
         _messageColor = Colors.red;
       });
+
       Future.delayed(const Duration(milliseconds: 1400), _next);
     }
   }
@@ -539,6 +771,7 @@ class _QuizScreenState extends State<QuizScreen> {
   @override
   Widget build(BuildContext context) {
     if (widget.words.isEmpty) return const EmptyState(message: 'Topic này chưa có từ vựng.');
+
     final word = _current!;
 
     return SingleChildScrollView(
@@ -549,14 +782,21 @@ class _QuizScreenState extends State<QuizScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text('Topic: ${widget.topic}', style: const TextStyle(color: Colors.black54)),
+              Text(
+                'Topic: ${widget.topic}',
+                style: const TextStyle(color: Colors.black54),
+              ),
               const SizedBox(height: 18),
               const Text('Dịch sang tiếng Anh:', style: TextStyle(fontSize: 16)),
               const SizedBox(height: 14),
               Text(
                 word.vietnamese,
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Color(0xFF2563EB)),
+                style: const TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF2563EB),
+                ),
               ),
               const SizedBox(height: 24),
               TextField(
@@ -572,13 +812,29 @@ class _QuizScreenState extends State<QuizScreen> {
               const SizedBox(height: 14),
               Row(
                 children: [
-                  Expanded(child: OutlinedButton.icon(onPressed: _hint, icon: const Icon(Icons.lightbulb), label: const Text('Gợi ý'))),
+                  Expanded(
+                    child: OutlinedButton.icon(
+                      onPressed: _hint,
+                      icon: const Icon(Icons.lightbulb),
+                      label: const Text('Gợi ý'),
+                    ),
+                  ),
                   const SizedBox(width: 10),
-                  Expanded(child: FilledButton.icon(onPressed: _check, icon: const Icon(Icons.check), label: const Text('Kiểm tra'))),
+                  Expanded(
+                    child: FilledButton.icon(
+                      onPressed: _check,
+                      icon: const Icon(Icons.check),
+                      label: const Text('Kiểm tra'),
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 14),
-              Text(_message, textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, color: _messageColor)),
+              Text(
+                _message,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontWeight: FontWeight.bold, color: _messageColor),
+              ),
             ],
           ),
         ),
@@ -633,8 +889,10 @@ class _MatchingScreenState extends State<MatchingScreen> {
       });
       return;
     }
+
     final copy = [...widget.words]..shuffle(widget.random);
     final picked = copy.take(6).toList();
+
     setState(() {
       _round = picked;
       _english = picked.map((w) => w.english).toList()..shuffle(widget.random);
@@ -649,22 +907,28 @@ class _MatchingScreenState extends State<MatchingScreen> {
 
   void _pickEnglish(String value) {
     if (_doneEnglish.contains(value)) return;
+
     widget.onSpeak(value);
+
     setState(() => _selectedEnglish = value);
     _tryCheck(value, _selectedVietnamese);
   }
 
   void _pickVietnamese(String value) {
     if (_doneVietnamese.contains(value)) return;
+
     setState(() => _selectedVietnamese = value);
     _tryCheck(_selectedEnglish, value);
   }
 
   void _tryCheck(String? english, String? vietnamese) {
     if (english == null || vietnamese == null) return;
+
     final match = _round.firstWhere((w) => w.english == english);
+
     if (match.vietnamese == vietnamese) {
       widget.onCorrect(match);
+
       setState(() {
         _doneEnglish.add(english);
         _doneVietnamese.add(vietnamese);
@@ -672,11 +936,13 @@ class _MatchingScreenState extends State<MatchingScreen> {
         _selectedVietnamese = null;
         _status = '✅ Chính xác!';
       });
+
       if (_doneEnglish.length == _round.length) {
         Future.delayed(const Duration(milliseconds: 900), _newRound);
       }
     } else {
       widget.onWrong();
+
       setState(() {
         _selectedEnglish = null;
         _selectedVietnamese = null;
@@ -698,8 +964,16 @@ class _MatchingScreenState extends State<MatchingScreen> {
               padding: const EdgeInsets.all(14),
               child: Row(
                 children: [
-                  Expanded(child: Text(_status, style: const TextStyle(fontWeight: FontWeight.w600))),
-                  IconButton(onPressed: _newRound, icon: const Icon(Icons.shuffle_rounded)),
+                  Expanded(
+                    child: Text(
+                      _status,
+                      style: const TextStyle(fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: _newRound,
+                    icon: const Icon(Icons.shuffle_rounded),
+                  ),
                 ],
               ),
             ),
@@ -726,6 +1000,7 @@ class _MatchingScreenState extends State<MatchingScreen> {
         final value = values[i];
         final done = isEnglish ? _doneEnglish.contains(value) : _doneVietnamese.contains(value);
         final selected = isEnglish ? _selectedEnglish == value : _selectedVietnamese == value;
+
         return Padding(
           padding: const EdgeInsets.only(bottom: 10),
           child: OutlinedButton(
@@ -737,10 +1012,20 @@ class _MatchingScreenState extends State<MatchingScreen> {
                   : selected
                       ? Colors.blue.shade50
                       : Colors.white,
-              side: BorderSide(color: done ? Colors.green : selected ? Colors.blue : Colors.black12),
+              side: BorderSide(
+                color: done
+                    ? Colors.green
+                    : selected
+                        ? Colors.blue
+                        : Colors.black12,
+              ),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
             ),
-            child: Text(value, textAlign: TextAlign.center, style: const TextStyle(fontWeight: FontWeight.w600)),
+            child: Text(
+              value,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontWeight: FontWeight.w600),
+            ),
           ),
         );
       },
@@ -782,6 +1067,7 @@ class _GrammarScreenState extends State<GrammarScreen> {
 
   void _newSession() {
     final copy = [...widget.questions]..shuffle(widget.random);
+
     setState(() {
       _round = copy.take(min(10, copy.length)).toList();
       _index = 0;
@@ -794,8 +1080,10 @@ class _GrammarScreenState extends State<GrammarScreen> {
 
   void _answer(String option) {
     if (_answered) return;
+
     final q = _round[_index];
     final ok = option == q.correct;
+
     if (ok) {
       widget.onCorrect();
       _correct++;
@@ -803,6 +1091,7 @@ class _GrammarScreenState extends State<GrammarScreen> {
       widget.onWrong();
       _wrong++;
     }
+
     setState(() {
       _selected = option;
       _answered = true;
@@ -816,7 +1105,15 @@ class _GrammarScreenState extends State<GrammarScreen> {
         builder: (_) => AlertDialog(
           title: const Text('Hoàn thành'),
           content: Text('Kết quả: Đúng $_correct - Sai $_wrong'),
-          actions: [FilledButton(onPressed: () { Navigator.pop(context); _newSession(); }, child: const Text('Làm lượt mới'))],
+          actions: [
+            FilledButton(
+              onPressed: () {
+                Navigator.pop(context);
+                _newSession();
+              },
+              child: const Text('Làm lượt mới'),
+            ),
+          ],
         ),
       );
     } else {
@@ -833,6 +1130,7 @@ class _GrammarScreenState extends State<GrammarScreen> {
     if (_round.isEmpty) return const EmptyState(message: 'Chưa có câu hỏi Part 5.');
 
     final q = _round[_index];
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Card(
@@ -843,15 +1141,23 @@ class _GrammarScreenState extends State<GrammarScreen> {
             children: [
               Row(
                 children: [
-                  Expanded(child: LinearProgressIndicator(value: (_index + 1) / _round.length)),
+                  Expanded(
+                    child: LinearProgressIndicator(value: (_index + 1) / _round.length),
+                  ),
                   const SizedBox(width: 12),
                   Text('${_index + 1}/${_round.length}'),
                 ],
               ),
               const SizedBox(height: 12),
-              Text('✓ $_correct    ✕ $_wrong', style: const TextStyle(fontWeight: FontWeight.bold)),
+              Text(
+                '✓ $_correct    ✕ $_wrong',
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
               const SizedBox(height: 20),
-              Text(q.question, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              Text(
+                q.question,
+                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
               const SizedBox(height: 16),
               for (final option in q.options)
                 Padding(
@@ -863,18 +1169,28 @@ class _GrammarScreenState extends State<GrammarScreen> {
                       padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                     ),
-                    child: Align(alignment: Alignment.centerLeft, child: Text(option)),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(option),
+                    ),
                   ),
                 ),
               if (_answered) ...[
                 const SizedBox(height: 10),
                 Container(
                   padding: const EdgeInsets.all(14),
-                  decoration: BoxDecoration(color: Colors.blueGrey.shade50, borderRadius: BorderRadius.circular(16)),
+                  decoration: BoxDecoration(
+                    color: Colors.blueGrey.shade50,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
                   child: Text(q.explanation),
                 ),
                 const SizedBox(height: 14),
-                FilledButton.icon(onPressed: _next, icon: const Icon(Icons.arrow_forward), label: const Text('Tiếp theo')),
+                FilledButton.icon(
+                  onPressed: _next,
+                  icon: const Icon(Icons.arrow_forward),
+                  label: const Text('Tiếp theo'),
+                ),
               ],
             ],
           ),
@@ -906,7 +1222,11 @@ class EmptyState extends StatelessWidget {
           children: [
             const Icon(Icons.info_outline_rounded, size: 48, color: Colors.blueGrey),
             const SizedBox(height: 12),
-            Text(message, textAlign: TextAlign.center, style: const TextStyle(fontSize: 16)),
+            Text(
+              message,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 16),
+            ),
           ],
         ),
       ),
