@@ -1,0 +1,842 @@
+[
+  {
+    "id": 1,
+    "part": 1,
+    "topic": "Office - Văn phòng",
+    "targetWords": [
+      "Desk",
+      "Document"
+    ],
+    "audioText": "The documents are arranged on the desk.",
+    "question": "Choose the sentence that best describes the picture.",
+    "options": [
+      "The documents are arranged on the desk.",
+      "The customers are leaving the store.",
+      "The printer is being repaired.",
+      "The waiter is serving dessert."
+    ],
+    "correctIndex": 0,
+    "transcript": "The documents are arranged on the desk.",
+    "explanation": "Câu đúng dùng từ Desk và Document, mô tả tài liệu được đặt trên bàn."
+  },
+  {
+    "id": 2,
+    "part": 1,
+    "topic": "Computer - Máy tính",
+    "targetWords": [
+      "Keyboard",
+      "Screen"
+    ],
+    "audioText": "A keyboard is placed in front of the screen.",
+    "question": "Choose the sentence that best describes the picture.",
+    "options": [
+      "A keyboard is placed in front of the screen.",
+      "A package is being returned to the warehouse.",
+      "A speaker is giving a presentation.",
+      "A receipt is attached to the invoice."
+    ],
+    "correctIndex": 0,
+    "transcript": "A keyboard is placed in front of the screen.",
+    "explanation": "Câu đúng mô tả bàn phím ở phía trước màn hình."
+  },
+  {
+    "id": 3,
+    "part": 1,
+    "topic": "Restaurant - Nhà hàng",
+    "targetWords": [
+      "Menu",
+      "Table"
+    ],
+    "audioText": "The menu is lying on the table.",
+    "question": "Choose the sentence that best describes the picture.",
+    "options": [
+      "The menu is lying on the table.",
+      "The file is being copied.",
+      "The candidate is attending an interview.",
+      "The bank statement is being printed."
+    ],
+    "correctIndex": 0,
+    "transcript": "The menu is lying on the table.",
+    "explanation": "Menu và Table là từ trong topic Restaurant."
+  },
+  {
+    "id": 4,
+    "part": 1,
+    "topic": "Conference - Hội nghị",
+    "targetWords": [
+      "Speaker",
+      "Presentation"
+    ],
+    "audioText": "The speaker is giving a presentation.",
+    "question": "Choose the sentence that best describes the picture.",
+    "options": [
+      "The speaker is giving a presentation.",
+      "The customer is comparing prices.",
+      "The employee is checking a warranty.",
+      "The cashier is counting coins."
+    ],
+    "correctIndex": 0,
+    "transcript": "The speaker is giving a presentation.",
+    "explanation": "Speaker đang thực hiện Presentation."
+  },
+  {
+    "id": 5,
+    "part": 1,
+    "topic": "Inventory - Hàng hóa",
+    "targetWords": [
+      "Warehouse",
+      "Package"
+    ],
+    "audioText": "Several packages are stacked in the warehouse.",
+    "question": "Choose the sentence that best describes the picture.",
+    "options": [
+      "Several packages are stacked in the warehouse.",
+      "A letter is being sent to a recipient.",
+      "The manager is signing a contract.",
+      "The chef is preparing an appetizer."
+    ],
+    "correctIndex": 0,
+    "transcript": "Several packages are stacked in the warehouse.",
+    "explanation": "Câu đúng dùng Package/Warehouse để mô tả hàng trong kho."
+  },
+  {
+    "id": 6,
+    "part": 1,
+    "topic": "Marketing - Tiếp thị",
+    "targetWords": [
+      "Product",
+      "Advertisement"
+    ],
+    "audioText": "The product advertisement is displayed on the screen.",
+    "question": "Choose the sentence that best describes the picture.",
+    "options": [
+      "The product advertisement is displayed on the screen.",
+      "The loan application is being approved.",
+      "The waiter is taking an order.",
+      "The salary report is being filed."
+    ],
+    "correctIndex": 0,
+    "transcript": "The product advertisement is displayed on the screen.",
+    "explanation": "Câu đúng nhắc đến Product và Advertisement."
+  },
+  {
+    "id": 7,
+    "part": 1,
+    "topic": "Shopping - Mua sắm",
+    "targetWords": [
+      "Cart",
+      "Store"
+    ],
+    "audioText": "A cart is near the entrance of the store.",
+    "question": "Choose the sentence that best describes the picture.",
+    "options": [
+      "A cart is near the entrance of the store.",
+      "A contract is being terminated.",
+      "A keyboard is under the desk.",
+      "An agenda is being updated."
+    ],
+    "correctIndex": 0,
+    "transcript": "A cart is near the entrance of the store.",
+    "explanation": "Cart và Store là từ trong chủ đề Shopping."
+  },
+  {
+    "id": 8,
+    "part": 1,
+    "topic": "Correspondence - Thư tín",
+    "targetWords": [
+      "Envelope",
+      "Address"
+    ],
+    "audioText": "The address is written on the envelope.",
+    "question": "Choose the sentence that best describes the picture.",
+    "options": [
+      "The address is written on the envelope.",
+      "The item is out of stock.",
+      "The budget is being audited.",
+      "The reservation has been canceled."
+    ],
+    "correctIndex": 0,
+    "transcript": "The address is written on the envelope.",
+    "explanation": "Address và Envelope xuất hiện trong câu mô tả."
+  },
+  {
+    "id": 9,
+    "part": 1,
+    "topic": "Banking - Ngân hàng",
+    "targetWords": [
+      "Deposit slip",
+      "Bank statement"
+    ],
+    "audioText": "A deposit slip is beside the bank statement.",
+    "question": "Choose the sentence that best describes the picture.",
+    "options": [
+      "A deposit slip is beside the bank statement.",
+      "The dessert is on the menu.",
+      "The team is joining a workshop.",
+      "The browser is downloading a file."
+    ],
+    "correctIndex": 0,
+    "transcript": "A deposit slip is beside the bank statement.",
+    "explanation": "Câu dùng Deposit slip và Bank statement."
+  },
+  {
+    "id": 10,
+    "part": 1,
+    "topic": "Warranties - Bảo hành",
+    "targetWords": [
+      "Warranty",
+      "Repair"
+    ],
+    "audioText": "The warranty form is next to the repair request.",
+    "question": "Choose the sentence that best describes the picture.",
+    "options": [
+      "The warranty form is next to the repair request.",
+      "The audience is watching a seminar.",
+      "The candidate is writing a resume.",
+      "The customer is reading a price tag."
+    ],
+    "correctIndex": 0,
+    "transcript": "The warranty form is next to the repair request.",
+    "explanation": "Warranty và Repair nằm trong topic Bảo hành."
+  },
+  {
+    "id": 11,
+    "part": 2,
+    "topic": "Office - Văn phòng",
+    "targetWords": [
+      "Appointment",
+      "Schedule"
+    ],
+    "audioText": "When is your appointment with the assistant?",
+    "question": "Choose the best response.",
+    "options": [
+      "It is scheduled for three o'clock.",
+      "Yes, the assistant is new.",
+      "I put it in a folder."
+    ],
+    "correctIndex": 0,
+    "transcript": "When is your appointment with the assistant?",
+    "explanation": "When hỏi thời gian, nên đáp án nói lịch hẹn lúc 3 giờ là phù hợp."
+  },
+  {
+    "id": 12,
+    "part": 2,
+    "topic": "Invoice - Hóa đơn",
+    "targetWords": [
+      "Invoice",
+      "Payment"
+    ],
+    "audioText": "Has the invoice been paid yet?",
+    "question": "Choose the best response.",
+    "options": [
+      "Yes, the payment was sent this morning.",
+      "It is a large meeting room.",
+      "Please update the software."
+    ],
+    "correctIndex": 0,
+    "transcript": "Has the invoice been paid yet?",
+    "explanation": "Câu hỏi Yes/No về invoice, đáp án nói payment đã gửi là đúng."
+  },
+  {
+    "id": 13,
+    "part": 2,
+    "topic": "Conference - Hội nghị",
+    "targetWords": [
+      "Agenda",
+      "Workshop"
+    ],
+    "audioText": "Where can I find the workshop agenda?",
+    "question": "Choose the best response.",
+    "options": [
+      "It is on the registration desk.",
+      "No, I did not order dessert.",
+      "The warranty is still valid."
+    ],
+    "correctIndex": 0,
+    "transcript": "Where can I find the workshop agenda?",
+    "explanation": "Where hỏi địa điểm, đáp án 'on the registration desk' phù hợp."
+  },
+  {
+    "id": 14,
+    "part": 2,
+    "topic": "Computer - Máy tính",
+    "targetWords": [
+      "Password",
+      "System"
+    ],
+    "audioText": "Why can't I log in to the system?",
+    "question": "Choose the best response.",
+    "options": [
+      "Your password may be incorrect.",
+      "The restaurant opens at noon.",
+      "The package is in the warehouse."
+    ],
+    "correctIndex": 0,
+    "transcript": "Why can't I log in to the system?",
+    "explanation": "Không đăng nhập được system thường do password sai."
+  },
+  {
+    "id": 15,
+    "part": 2,
+    "topic": "Marketing - Tiếp thị",
+    "targetWords": [
+      "Campaign",
+      "Audience"
+    ],
+    "audioText": "Who is the target audience for this campaign?",
+    "question": "Choose the best response.",
+    "options": [
+      "Young professionals in urban areas.",
+      "The keyboard is on the desk.",
+      "I will deposit the check tomorrow."
+    ],
+    "correctIndex": 0,
+    "transcript": "Who is the target audience for this campaign?",
+    "explanation": "Who hỏi đối tượng, đáp án nói nhóm người cụ thể."
+  },
+  {
+    "id": 16,
+    "part": 2,
+    "topic": "Restaurant - Nhà hàng",
+    "targetWords": [
+      "Reservation",
+      "Table"
+    ],
+    "audioText": "Did you make a reservation for a table?",
+    "question": "Choose the best response.",
+    "options": [
+      "Yes, I reserved one for seven o'clock.",
+      "The invoice is due today.",
+      "She is a conference speaker."
+    ],
+    "correctIndex": 0,
+    "transcript": "Did you make a reservation for a table?",
+    "explanation": "Câu hỏi hỏi đã đặt bàn chưa, đáp án Yes + thời gian phù hợp."
+  },
+  {
+    "id": 17,
+    "part": 2,
+    "topic": "Contract - Hợp đồng",
+    "targetWords": [
+      "Contract",
+      "Sign"
+    ],
+    "audioText": "Who needs to sign the contract?",
+    "question": "Choose the best response.",
+    "options": [
+      "Both parties must sign it.",
+      "The printer is out of paper.",
+      "It was delivered yesterday."
+    ],
+    "correctIndex": 0,
+    "transcript": "Who needs to sign the contract?",
+    "explanation": "Who asks who signs; both parties must sign the contract."
+  },
+  {
+    "id": 18,
+    "part": 2,
+    "topic": "Inventory - Hàng hóa",
+    "targetWords": [
+      "Stock",
+      "Order"
+    ],
+    "audioText": "Should we order more stock this week?",
+    "question": "Choose the best response.",
+    "options": [
+      "Yes, several items are running low.",
+      "It is a formal letter.",
+      "The interview starts at nine."
+    ],
+    "correctIndex": 0,
+    "transcript": "Should we order more stock this week?",
+    "explanation": "Câu hỏi Should we..., đáp án Yes + lý do hàng sắp hết."
+  },
+  {
+    "id": 19,
+    "part": 2,
+    "topic": "Banking - Ngân hàng",
+    "targetWords": [
+      "Loan",
+      "Interest"
+    ],
+    "audioText": "What is the interest rate on this loan?",
+    "question": "Choose the best response.",
+    "options": [
+      "It is four percent per year.",
+      "The chair is next to the desk.",
+      "The chef prepared the main course."
+    ],
+    "correctIndex": 0,
+    "transcript": "What is the interest rate on this loan?",
+    "explanation": "What hỏi lãi suất; đáp án là phần trăm mỗi năm."
+  },
+  {
+    "id": 20,
+    "part": 2,
+    "topic": "Salaries and Benefits - Lương và phúc lợi",
+    "targetWords": [
+      "Salary",
+      "Bonus"
+    ],
+    "audioText": "When will employees receive their annual bonus?",
+    "question": "Choose the best response.",
+    "options": [
+      "It will be included with next month's salary.",
+      "The website is being updated.",
+      "The package label is missing."
+    ],
+    "correctIndex": 0,
+    "transcript": "When will employees receive their annual bonus?",
+    "explanation": "When hỏi thời gian nhận bonus; đáp án nói tháng sau cùng salary."
+  },
+  {
+    "id": 21,
+    "part": 3,
+    "topic": "Office - Văn phòng",
+    "targetWords": [
+      "Meeting",
+      "Report",
+      "Schedule"
+    ],
+    "audioText": "Woman: Did you finish the sales report for the meeting? Man: Yes, I emailed it to the team this morning. Woman: Great. The meeting was moved to two o'clock, so please update your schedule.",
+    "questions": [
+      {
+        "question": "What did the man finish?",
+        "options": [
+          "A sales report",
+          "A warranty form",
+          "A bank statement",
+          "A restaurant menu"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "question": "How did the man send it?",
+        "options": [
+          "By email",
+          "By post",
+          "By phone",
+          "By courier"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "question": "What should the man update?",
+        "options": [
+          "His schedule",
+          "His password",
+          "His invoice",
+          "His resume"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "transcript": "Woman: Did you finish the sales report for the meeting? Man: Yes, I emailed it to the team this morning. Woman: Great. The meeting was moved to two o'clock, so please update your schedule.",
+    "explanation": "Đoạn hội thoại dùng Meeting, Report, Schedule trong chủ đề Office."
+  },
+  {
+    "id": 22,
+    "part": 3,
+    "topic": "Invoice - Hóa đơn",
+    "targetWords": [
+      "Invoice",
+      "Amount",
+      "Due date"
+    ],
+    "audioText": "Man: I received the invoice, but the amount seems too high. Woman: Let me verify it with accounting. Man: Thanks. The due date is next Friday, so we still have time.",
+    "questions": [
+      {
+        "question": "What is the problem with the invoice?",
+        "options": [
+          "The amount seems too high",
+          "The due date has passed",
+          "The receipt is missing",
+          "The account is closed"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "question": "Who will verify the invoice?",
+        "options": [
+          "The woman",
+          "The customer",
+          "The waiter",
+          "The speaker"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "question": "When is the due date?",
+        "options": [
+          "Next Friday",
+          "This morning",
+          "At noon",
+          "Next month"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "transcript": "Man: I received the invoice, but the amount seems too high. Woman: Let me verify it with accounting. Man: Thanks. The due date is next Friday, so we still have time.",
+    "explanation": "Nội dung xoay quanh Invoice, Amount, Due date."
+  },
+  {
+    "id": 23,
+    "part": 3,
+    "topic": "Conference - Hội nghị",
+    "targetWords": [
+      "Conference",
+      "Speaker",
+      "Venue"
+    ],
+    "audioText": "Woman: Has the conference venue been confirmed? Man: Yes, it will be held at the City Center Hotel. Woman: Perfect. I will call the speaker to confirm the presentation time.",
+    "questions": [
+      {
+        "question": "What has been confirmed?",
+        "options": [
+          "The conference venue",
+          "The warranty period",
+          "The shopping cart",
+          "The salary scale"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "question": "Where will the event be held?",
+        "options": [
+          "At the City Center Hotel",
+          "At the airport",
+          "At a bank",
+          "At a warehouse"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "question": "Who will the woman call?",
+        "options": [
+          "The speaker",
+          "The chef",
+          "The applicant",
+          "The postman"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "transcript": "Woman: Has the conference venue been confirmed? Man: Yes, it will be held at the City Center Hotel. Woman: Perfect. I will call the speaker to confirm the presentation time.",
+    "explanation": "Conference, Venue, Speaker là từ mục tiêu."
+  },
+  {
+    "id": 24,
+    "part": 3,
+    "topic": "Computer - Máy tính",
+    "targetWords": [
+      "Website",
+      "Update",
+      "Security"
+    ],
+    "audioText": "Man: The company website needs a security update tonight. Woman: Will customers be able to access it? Man: Not for about thirty minutes while the system restarts.",
+    "questions": [
+      {
+        "question": "What needs an update?",
+        "options": [
+          "The company website",
+          "The restaurant menu",
+          "The sales contract",
+          "The inventory label"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "question": "What kind of update is needed?",
+        "options": [
+          "A security update",
+          "A salary update",
+          "A price update",
+          "A venue update"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "question": "How long will access be unavailable?",
+        "options": [
+          "About thirty minutes",
+          "Two hours",
+          "All day",
+          "One week"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "transcript": "Man: The company website needs a security update tonight. Woman: Will customers be able to access it? Man: Not for about thirty minutes while the system restarts.",
+    "explanation": "Đoạn nghe sử dụng Website, Security, Update."
+  },
+  {
+    "id": 25,
+    "part": 3,
+    "topic": "Restaurant - Nhà hàng",
+    "targetWords": [
+      "Reservation",
+      "Menu",
+      "Dessert"
+    ],
+    "audioText": "Woman: I have a reservation for two at seven. Man: Certainly. Here is the menu, and today's special dessert is chocolate cake. Woman: That sounds wonderful.",
+    "questions": [
+      {
+        "question": "What does the woman have?",
+        "options": [
+          "A reservation",
+          "An invoice",
+          "A job offer",
+          "A warranty claim"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "question": "What does the man give her?",
+        "options": [
+          "A menu",
+          "A bank statement",
+          "A keyboard",
+          "A resume"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "question": "What is the special dessert?",
+        "options": [
+          "Chocolate cake",
+          "Apple juice",
+          "Seafood soup",
+          "Grilled chicken"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "transcript": "Woman: I have a reservation for two at seven. Man: Certainly. Here is the menu, and today's special dessert is chocolate cake. Woman: That sounds wonderful.",
+    "explanation": "Reservation, Menu, Dessert đều trong topic Restaurant."
+  },
+  {
+    "id": 26,
+    "part": 3,
+    "topic": "Marketing - Tiếp thị",
+    "targetWords": [
+      "Campaign",
+      "Discount",
+      "Customer"
+    ],
+    "audioText": "Man: The new campaign offers a twenty percent discount. Woman: Do you think it will attract more customers? Man: Yes, especially if we advertise it on social media.",
+    "questions": [
+      {
+        "question": "What does the campaign offer?",
+        "options": [
+          "A twenty percent discount",
+          "A free warranty repair",
+          "A bank loan",
+          "A job interview"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "question": "Who might be attracted?",
+        "options": [
+          "More customers",
+          "More speakers",
+          "More applicants",
+          "More chefs"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "question": "Where will they advertise it?",
+        "options": [
+          "On social media",
+          "In a warehouse",
+          "At a bank",
+          "In a stockroom"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "transcript": "Man: The new campaign offers a twenty percent discount. Woman: Do you think it will attract more customers? Man: Yes, especially if we advertise it on social media.",
+    "explanation": "Campaign, Discount, Customer xuất hiện trong hội thoại."
+  },
+  {
+    "id": 27,
+    "part": 3,
+    "topic": "Job Advertising and Recruiting - Việc làm và tuyển dụng",
+    "targetWords": [
+      "Applicant",
+      "Interview",
+      "Resume"
+    ],
+    "audioText": "Woman: The applicant has excellent experience. Man: Did you read her resume? Woman: Yes, and I scheduled an interview for Monday morning.",
+    "questions": [
+      {
+        "question": "Who has excellent experience?",
+        "options": [
+          "The applicant",
+          "The customer",
+          "The recipient",
+          "The waiter"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "question": "What did the woman read?",
+        "options": [
+          "A resume",
+          "A menu",
+          "A deposit slip",
+          "A repair policy"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "question": "When is the interview?",
+        "options": [
+          "Monday morning",
+          "Friday evening",
+          "This afternoon",
+          "Next month"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "transcript": "Woman: The applicant has excellent experience. Man: Did you read her resume? Woman: Yes, and I scheduled an interview for Monday morning.",
+    "explanation": "Applicant, Resume, Interview là các từ mục tiêu."
+  },
+  {
+    "id": 28,
+    "part": 3,
+    "topic": "Banking - Ngân hàng",
+    "targetWords": [
+      "Deposit",
+      "Transaction",
+      "Fee"
+    ],
+    "audioText": "Man: I made a deposit yesterday, but I do not see the transaction online. Woman: It may take one business day to appear. Man: I hope there is no extra fee.",
+    "questions": [
+      {
+        "question": "What did the man do yesterday?",
+        "options": [
+          "He made a deposit",
+          "He signed a contract",
+          "He ordered dessert",
+          "He updated a website"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "question": "What is not visible online?",
+        "options": [
+          "The transaction",
+          "The menu",
+          "The agenda",
+          "The label"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "question": "What is the man worried about?",
+        "options": [
+          "An extra fee",
+          "A late meeting",
+          "A broken keyboard",
+          "A missing chair"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "transcript": "Man: I made a deposit yesterday, but I do not see the transaction online. Woman: It may take one business day to appear. Man: I hope there is no extra fee.",
+    "explanation": "Deposit, Transaction, Fee thuộc topic Banking."
+  },
+  {
+    "id": 29,
+    "part": 3,
+    "topic": "Inventory - Hàng hóa",
+    "targetWords": [
+      "Stock",
+      "Warehouse",
+      "Restock"
+    ],
+    "audioText": "Woman: We are running low on printer paper. Man: I checked the warehouse, and there are only five boxes left. Woman: Please restock it before Friday.",
+    "questions": [
+      {
+        "question": "What item is running low?",
+        "options": [
+          "Printer paper",
+          "Coffee cups",
+          "Dinner plates",
+          "Bank forms"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "question": "Where did the man check?",
+        "options": [
+          "The warehouse",
+          "The conference venue",
+          "The restaurant",
+          "The bank"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "question": "What should the man do?",
+        "options": [
+          "Restock the paper",
+          "Cancel the contract",
+          "Repair the website",
+          "Send a resume"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "transcript": "Woman: We are running low on printer paper. Man: I checked the warehouse, and there are only five boxes left. Woman: Please restock it before Friday.",
+    "explanation": "Stock/Warehouse/Restock giúp luyện chủ đề Inventory."
+  },
+  {
+    "id": 30,
+    "part": 3,
+    "topic": "Warranties - Bảo hành",
+    "targetWords": [
+      "Warranty",
+      "Defect",
+      "Replace"
+    ],
+    "audioText": "Man: This product has a defect, and I bought it last month. Woman: It is still under warranty, so we can replace it for free. Man: That would be great.",
+    "questions": [
+      {
+        "question": "What is wrong with the product?",
+        "options": [
+          "It has a defect",
+          "It is too expensive",
+          "It is out of stock",
+          "It has no label"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "question": "Why can it be replaced?",
+        "options": [
+          "It is still under warranty",
+          "The invoice is due",
+          "The meeting is canceled",
+          "The website is down"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "question": "How much will replacement cost?",
+        "options": [
+          "Nothing",
+          "A late fee",
+          "Twenty dollars",
+          "Four percent"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "transcript": "Man: This product has a defect, and I bought it last month. Woman: It is still under warranty, so we can replace it for free. Man: That would be great.",
+    "explanation": "Warranty, Defect, Replace là từ trong topic Bảo hành."
+  }
+]
