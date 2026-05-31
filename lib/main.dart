@@ -80,6 +80,76 @@ class GrammarQuestion {
   }
 }
 
+
+class ListeningSubQuestion {
+  final String question;
+  final List<String> options;
+  final int correctIndex;
+
+  const ListeningSubQuestion({
+    required this.question,
+    required this.options,
+    required this.correctIndex,
+  });
+
+  factory ListeningSubQuestion.fromJson(Map<String, dynamic> json) {
+    return ListeningSubQuestion(
+      question: (json['question'] ?? '').toString(),
+      options: List<String>.from(json['options'] ?? const []),
+      correctIndex: (json['correctIndex'] as num?)?.toInt() ?? 0,
+    );
+  }
+}
+
+class ListeningQuestion {
+  final int id;
+  final int part;
+  final String topic;
+  final List<String> targetWords;
+  final String audioText;
+  final String question;
+  final List<String> options;
+  final int correctIndex;
+  final String transcript;
+  final String explanation;
+  final List<ListeningSubQuestion> questions;
+
+  const ListeningQuestion({
+    required this.id,
+    required this.part,
+    required this.topic,
+    required this.targetWords,
+    required this.audioText,
+    required this.question,
+    required this.options,
+    required this.correctIndex,
+    required this.transcript,
+    required this.explanation,
+    required this.questions,
+  });
+
+  factory ListeningQuestion.fromJson(Map<String, dynamic> json) {
+    final subQuestionsRaw = json['questions'];
+    return ListeningQuestion(
+      id: (json['id'] as num?)?.toInt() ?? 0,
+      part: (json['part'] as num?)?.toInt() ?? 1,
+      topic: (json['topic'] ?? 'General').toString(),
+      targetWords: List<String>.from(json['targetWords'] ?? const []),
+      audioText: (json['audioText'] ?? '').toString(),
+      question: (json['question'] ?? '').toString(),
+      options: List<String>.from(json['options'] ?? const []),
+      correctIndex: (json['correctIndex'] as num?)?.toInt() ?? 0,
+      transcript: (json['transcript'] ?? '').toString(),
+      explanation: (json['explanation'] ?? '').toString(),
+      questions: subQuestionsRaw is List
+          ? subQuestionsRaw
+              .map((e) => ListeningSubQuestion.fromJson(e as Map<String, dynamic>))
+              .toList()
+          : const [],
+    );
+  }
+}
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -93,6 +163,7 @@ class _HomePageState extends State<HomePage> {
 
   List<VocabWord> _allWords = [];
   List<GrammarQuestion> _grammarQuestions = [];
+  List<ListeningQuestion> _listeningQuestions = [];
   Map<String, int> _correctCounts = {};
   int _score = 100;
   int _tabIndex = 0;
@@ -126,6 +197,13 @@ class _HomePageState extends State<HomePage> {
         .where((q) => q.question.trim().isNotEmpty && q.options.length >= 4)
         .toList();
 
+    final listeningRaw = await rootBundle.loadString('assets/listening_questions.json');
+    final listeningData = jsonDecode(listeningRaw) as List<dynamic>;
+    final listening = listeningData
+        .map((e) => ListeningQuestion.fromJson(e as Map<String, dynamic>))
+        .where((q) => q.audioText.trim().isNotEmpty)
+        .toList();
+
     final prefs = await SharedPreferences.getInstance();
     final countsRaw = prefs.getString('correctCounts') ?? '{}';
     final countsDecoded = jsonDecode(countsRaw) as Map<String, dynamic>;
@@ -133,6 +211,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _allWords = words;
       _grammarQuestions = grammar;
+      _listeningQuestions = listening;
       _score = prefs.getInt('score') ?? 100;
       _correctCounts = countsDecoded.map((k, v) => MapEntry(k, (v as num).toInt()));
       _loading = false;
@@ -161,28 +240,24 @@ class _HomePageState extends State<HomePage> {
       await _tts.setLanguage('en-US');
       await _tts.setVolume(1.0);
       await _tts.setPitch(1.0);
+
+      // Flutter Web/iPhone Safari dùng Web Speech API, tốc độ đọc phù hợp khác Android.
       await _tts.setSpeechRate(_speechRate);
 
+      // Cố gắng chọn giọng tiếng Anh nếu thiết bị/trình duyệt trả về danh sách giọng đọc.
       final voices = await _tts.getVoices;
       if (voices is List && voices.isNotEmpty) {
         Map<dynamic, dynamic>? selectedVoice;
-
         for (final voice in voices) {
           if (voice is Map) {
             final locale = (voice['locale'] ?? voice['language'] ?? '').toString().toLowerCase();
             final name = (voice['name'] ?? '').toString().toLowerCase();
-
-            if (locale.startsWith('en-us') ||
-                locale.startsWith('en') ||
-                name.contains('english') ||
-                name.contains('samantha') ||
-                name.contains('alex')) {
+            if (locale.startsWith('en-us') || name.contains('english')) {
               selectedVoice = voice;
               break;
             }
           }
         }
-
         if (selectedVoice != null && selectedVoice['name'] != null) {
           await _tts.setVoice({
             'name': selectedVoice['name'].toString(),
@@ -213,6 +288,7 @@ class _HomePageState extends State<HomePage> {
       await _tts.setPitch(1.0);
       await _tts.setSpeechRate(_speechRate);
 
+      // Delay rất ngắn giúp iPhone/Safari ổn định hơn khi bấm liên tục nhiều từ.
       await Future<void>.delayed(const Duration(milliseconds: 80));
       await _tts.speak(cleanText);
     } catch (e) {
@@ -257,23 +333,14 @@ class _HomePageState extends State<HomePage> {
         title: const Text('Xóa tiến độ?'),
         content: const Text('Điểm số và số lần đúng của các từ sẽ trở về ban đầu.'),
         actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: const Text('Hủy'),
-          ),
-          FilledButton(
-            onPressed: () => Navigator.pop(context, true),
-            child: const Text('Xóa'),
-          ),
+          TextButton(onPressed: () => Navigator.pop(context, false), child: const Text('Hủy')),
+          FilledButton(onPressed: () => Navigator.pop(context, true), child: const Text('Xóa')),
         ],
       ),
     );
-
     if (ok != true) return;
-
     final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
-
     setState(() {
       _score = 100;
       _correctCounts = {};
@@ -317,6 +384,15 @@ class _HomePageState extends State<HomePage> {
         },
         onWrong: () => _addScore(-5),
       ),
+      ListeningScreen(
+        key: ValueKey('listening-$_topic-${_listeningQuestions.length}'),
+        questions: _listeningQuestions,
+        topic: _topic,
+        random: _random,
+        onSpeak: _speak,
+        onCorrect: () => _addScore(2),
+        onWrong: () => _addScore(-2),
+      ),
       GrammarScreen(
         questions: _grammarQuestions,
         random: _random,
@@ -333,10 +409,7 @@ class _HomePageState extends State<HomePage> {
           Center(
             child: Padding(
               padding: const EdgeInsets.only(right: 12),
-              child: Text(
-                '⭐ $_score',
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
+              child: Text('⭐ $_score', style: const TextStyle(fontWeight: FontWeight.bold)),
             ),
           ),
           IconButton(
@@ -387,6 +460,7 @@ class _HomePageState extends State<HomePage> {
           NavigationDestination(icon: Icon(Icons.menu_book_rounded), label: 'Học'),
           NavigationDestination(icon: Icon(Icons.quiz_rounded), label: 'Kiểm tra'),
           NavigationDestination(icon: Icon(Icons.extension_rounded), label: 'Nối từ'),
+          NavigationDestination(icon: Icon(Icons.headphones_rounded), label: 'Nghe'),
           NavigationDestination(icon: Icon(Icons.school_rounded), label: 'Part 5'),
         ],
       ),
@@ -439,9 +513,7 @@ class TopicPicker extends StatelessWidget {
 
                         setDialogState(() {
                           filteredTopics = topics
-                              .where(
-                                (topicName) => topicName.toLowerCase().contains(keyword),
-                              )
+                              .where((topicName) => topicName.toLowerCase().contains(keyword))
                               .toList();
                         });
                       },
@@ -449,9 +521,7 @@ class TopicPicker extends StatelessWidget {
                     const SizedBox(height: 12),
                     Expanded(
                       child: filteredTopics.isEmpty
-                          ? const Center(
-                              child: Text('Không tìm thấy topic phù hợp'),
-                            )
+                          ? const Center(child: Text('Không tìm thấy topic phù hợp'))
                           : ListView.separated(
                               itemCount: filteredTopics.length,
                               separatorBuilder: (_, __) => const Divider(height: 1),
@@ -478,9 +548,7 @@ class TopicPicker extends StatelessWidget {
                                           color: Theme.of(context).colorScheme.primary,
                                         )
                                       : null,
-                                  onTap: () {
-                                    Navigator.of(dialogContext).pop(item);
-                                  },
+                                  onTap: () => Navigator.of(dialogContext).pop(item),
                                 );
                               },
                             ),
@@ -490,9 +558,7 @@ class TopicPicker extends StatelessWidget {
               ),
               actions: [
                 TextButton(
-                  onPressed: () {
-                    Navigator.of(dialogContext).pop();
-                  },
+                  onPressed: () => Navigator.of(dialogContext).pop(),
                   child: const Text('Hủy'),
                 ),
               ],
@@ -527,29 +593,20 @@ class TopicPicker extends StatelessWidget {
                   children: [
                     const Text(
                       'Topic đang học',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.black54,
-                      ),
+                      style: TextStyle(fontSize: 12, color: Colors.black54),
                     ),
                     const SizedBox(height: 2),
                     Text(
                       topic,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                      ),
+                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                     ),
                   ],
                 ),
               ),
               const SizedBox(width: 10),
-              Text(
-                '$count từ',
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
+              Text('$count từ', style: const TextStyle(fontWeight: FontWeight.bold)),
               const SizedBox(width: 8),
               const Icon(Icons.keyboard_arrow_down_rounded),
             ],
@@ -637,15 +694,11 @@ class LearnScreen extends StatelessWidget {
         final w = words[index];
         final count = correctCounts[w.english] ?? 0;
         final learned = count >= 5;
-
         return Card(
           margin: const EdgeInsets.only(bottom: 12),
           child: ListTile(
             contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-            title: Text(
-              w.english,
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
+            title: Text(w.english, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             subtitle: Padding(
               padding: const EdgeInsets.only(top: 6),
               child: Column(
@@ -705,15 +758,8 @@ class _QuizScreenState extends State<QuizScreen> {
     _next();
   }
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
   void _next() {
     if (widget.words.isEmpty) return;
-
     setState(() {
       _current = widget.words[widget.random.nextInt(widget.words.length)];
       _controller.clear();
@@ -725,13 +771,9 @@ class _QuizScreenState extends State<QuizScreen> {
   void _hint() {
     final ans = _current?.english.trim() ?? '';
     final current = _controller.text;
-
     if (current.length < ans.length) {
       _controller.text = current + ans[current.length];
-      _controller.selection = TextSelection.fromPosition(
-        TextPosition(offset: _controller.text.length),
-      );
-
+      _controller.selection = TextSelection.fromPosition(TextPosition(offset: _controller.text.length));
       setState(() {
         _message = '💡 Đã gợi ý thêm 1 chữ cái';
         _messageColor = Colors.blueGrey;
@@ -742,28 +784,23 @@ class _QuizScreenState extends State<QuizScreen> {
   void _check() {
     final word = _current;
     if (word == null) return;
-
     final user = _controller.text.trim().toLowerCase();
     final ans = word.english.trim().toLowerCase();
 
     if (user == ans) {
       widget.onCorrect(word);
       widget.onSpeak(word.english);
-
       setState(() {
         _message = '🎉 Chính xác! +1 điểm';
         _messageColor = Colors.green;
       });
-
       Future.delayed(const Duration(milliseconds: 900), _next);
     } else {
       widget.onWrong();
-
       setState(() {
         _message = "❌ Sai rồi! Đáp án: ${word.english}";
         _messageColor = Colors.red;
       });
-
       Future.delayed(const Duration(milliseconds: 1400), _next);
     }
   }
@@ -771,7 +808,6 @@ class _QuizScreenState extends State<QuizScreen> {
   @override
   Widget build(BuildContext context) {
     if (widget.words.isEmpty) return const EmptyState(message: 'Topic này chưa có từ vựng.');
-
     final word = _current!;
 
     return SingleChildScrollView(
@@ -782,21 +818,14 @@ class _QuizScreenState extends State<QuizScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(
-                'Topic: ${widget.topic}',
-                style: const TextStyle(color: Colors.black54),
-              ),
+              Text('Topic: ${widget.topic}', style: const TextStyle(color: Colors.black54)),
               const SizedBox(height: 18),
               const Text('Dịch sang tiếng Anh:', style: TextStyle(fontSize: 16)),
               const SizedBox(height: 14),
               Text(
                 word.vietnamese,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF2563EB),
-                ),
+                style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Color(0xFF2563EB)),
               ),
               const SizedBox(height: 24),
               TextField(
@@ -812,29 +841,13 @@ class _QuizScreenState extends State<QuizScreen> {
               const SizedBox(height: 14),
               Row(
                 children: [
-                  Expanded(
-                    child: OutlinedButton.icon(
-                      onPressed: _hint,
-                      icon: const Icon(Icons.lightbulb),
-                      label: const Text('Gợi ý'),
-                    ),
-                  ),
+                  Expanded(child: OutlinedButton.icon(onPressed: _hint, icon: const Icon(Icons.lightbulb), label: const Text('Gợi ý'))),
                   const SizedBox(width: 10),
-                  Expanded(
-                    child: FilledButton.icon(
-                      onPressed: _check,
-                      icon: const Icon(Icons.check),
-                      label: const Text('Kiểm tra'),
-                    ),
-                  ),
+                  Expanded(child: FilledButton.icon(onPressed: _check, icon: const Icon(Icons.check), label: const Text('Kiểm tra'))),
                 ],
               ),
               const SizedBox(height: 14),
-              Text(
-                _message,
-                textAlign: TextAlign.center,
-                style: TextStyle(fontWeight: FontWeight.bold, color: _messageColor),
-              ),
+              Text(_message, textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, color: _messageColor)),
             ],
           ),
         ),
@@ -889,10 +902,8 @@ class _MatchingScreenState extends State<MatchingScreen> {
       });
       return;
     }
-
     final copy = [...widget.words]..shuffle(widget.random);
     final picked = copy.take(6).toList();
-
     setState(() {
       _round = picked;
       _english = picked.map((w) => w.english).toList()..shuffle(widget.random);
@@ -907,28 +918,22 @@ class _MatchingScreenState extends State<MatchingScreen> {
 
   void _pickEnglish(String value) {
     if (_doneEnglish.contains(value)) return;
-
     widget.onSpeak(value);
-
     setState(() => _selectedEnglish = value);
     _tryCheck(value, _selectedVietnamese);
   }
 
   void _pickVietnamese(String value) {
     if (_doneVietnamese.contains(value)) return;
-
     setState(() => _selectedVietnamese = value);
     _tryCheck(_selectedEnglish, value);
   }
 
   void _tryCheck(String? english, String? vietnamese) {
     if (english == null || vietnamese == null) return;
-
     final match = _round.firstWhere((w) => w.english == english);
-
     if (match.vietnamese == vietnamese) {
       widget.onCorrect(match);
-
       setState(() {
         _doneEnglish.add(english);
         _doneVietnamese.add(vietnamese);
@@ -936,13 +941,11 @@ class _MatchingScreenState extends State<MatchingScreen> {
         _selectedVietnamese = null;
         _status = '✅ Chính xác!';
       });
-
       if (_doneEnglish.length == _round.length) {
         Future.delayed(const Duration(milliseconds: 900), _newRound);
       }
     } else {
       widget.onWrong();
-
       setState(() {
         _selectedEnglish = null;
         _selectedVietnamese = null;
@@ -964,16 +967,8 @@ class _MatchingScreenState extends State<MatchingScreen> {
               padding: const EdgeInsets.all(14),
               child: Row(
                 children: [
-                  Expanded(
-                    child: Text(
-                      _status,
-                      style: const TextStyle(fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: _newRound,
-                    icon: const Icon(Icons.shuffle_rounded),
-                  ),
+                  Expanded(child: Text(_status, style: const TextStyle(fontWeight: FontWeight.w600))),
+                  IconButton(onPressed: _newRound, icon: const Icon(Icons.shuffle_rounded)),
                 ],
               ),
             ),
@@ -1000,7 +995,6 @@ class _MatchingScreenState extends State<MatchingScreen> {
         final value = values[i];
         final done = isEnglish ? _doneEnglish.contains(value) : _doneVietnamese.contains(value);
         final selected = isEnglish ? _selectedEnglish == value : _selectedVietnamese == value;
-
         return Padding(
           padding: const EdgeInsets.only(bottom: 10),
           child: OutlinedButton(
@@ -1012,24 +1006,367 @@ class _MatchingScreenState extends State<MatchingScreen> {
                   : selected
                       ? Colors.blue.shade50
                       : Colors.white,
-              side: BorderSide(
-                color: done
-                    ? Colors.green
-                    : selected
-                        ? Colors.blue
-                        : Colors.black12,
-              ),
+              side: BorderSide(color: done ? Colors.green : selected ? Colors.blue : Colors.black12),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
             ),
-            child: Text(
-              value,
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontWeight: FontWeight.w600),
-            ),
+            child: Text(value, textAlign: TextAlign.center, style: const TextStyle(fontWeight: FontWeight.w600)),
           ),
         );
       },
     );
+  }
+}
+
+
+class ListeningScreen extends StatefulWidget {
+  final List<ListeningQuestion> questions;
+  final String topic;
+  final Random random;
+  final Future<void> Function(String text) onSpeak;
+  final VoidCallback onCorrect;
+  final VoidCallback onWrong;
+
+  const ListeningScreen({
+    super.key,
+    required this.questions,
+    required this.topic,
+    required this.random,
+    required this.onSpeak,
+    required this.onCorrect,
+    required this.onWrong,
+  });
+
+  @override
+  State<ListeningScreen> createState() => _ListeningScreenState();
+}
+
+class _ListeningScreenState extends State<ListeningScreen> {
+  int _part = 1;
+  ListeningQuestion? _current;
+  int? _selected;
+  bool _answered = false;
+  final Map<int, int> _part3Answers = {};
+  final Set<int> _part3Scored = {};
+
+  List<ListeningQuestion> get _filteredQuestions {
+    return widget.questions.where((q) {
+      final topicOk = widget.topic == 'Tất cả' || q.topic == widget.topic;
+      return topicOk && q.part == _part;
+    }).toList();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _nextQuestion();
+  }
+
+  @override
+  void didUpdateWidget(covariant ListeningScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.topic != widget.topic || oldWidget.questions.length != widget.questions.length) {
+      _nextQuestion();
+    }
+  }
+
+  void _changePart(int part) {
+    setState(() {
+      _part = part;
+      _current = null;
+    });
+    _nextQuestion();
+  }
+
+  void _nextQuestion() {
+    final list = _filteredQuestions;
+    if (list.isEmpty) {
+      setState(() {
+        _current = null;
+        _selected = null;
+        _answered = false;
+        _part3Answers.clear();
+        _part3Scored.clear();
+      });
+      return;
+    }
+
+    setState(() {
+      _current = list[widget.random.nextInt(list.length)];
+      _selected = null;
+      _answered = false;
+      _part3Answers.clear();
+      _part3Scored.clear();
+    });
+  }
+
+  void _answerSingle(int index) {
+    final q = _current;
+    if (q == null || _answered) return;
+
+    final ok = index == q.correctIndex;
+    if (ok) {
+      widget.onCorrect();
+    } else {
+      widget.onWrong();
+    }
+
+    setState(() {
+      _selected = index;
+      _answered = true;
+    });
+  }
+
+  void _answerPart3(int questionIndex, int optionIndex) {
+    final q = _current;
+    if (q == null || _part3Scored.contains(questionIndex)) return;
+
+    final sub = q.questions[questionIndex];
+    final ok = optionIndex == sub.correctIndex;
+    if (ok) {
+      widget.onCorrect();
+    } else {
+      widget.onWrong();
+    }
+
+    setState(() {
+      _part3Answers[questionIndex] = optionIndex;
+      _part3Scored.add(questionIndex);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final q = _current;
+
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 10, 16, 4),
+          child: Card(
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                children: [
+                  SegmentedButton<int>(
+                    segments: const [
+                      ButtonSegment(value: 1, label: Text('Part 1')),
+                      ButtonSegment(value: 2, label: Text('Part 2')),
+                      ButtonSegment(value: 3, label: Text('Part 3')),
+                    ],
+                    selected: {_part},
+                    onSelectionChanged: (values) {
+                      if (values.isNotEmpty) _changePart(values.first);
+                    },
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    widget.topic == 'Tất cả'
+                        ? 'Đang luyện tất cả topic'
+                        : 'Topic: ${widget.topic}',
+                    style: const TextStyle(fontWeight: FontWeight.w600),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        Expanded(
+          child: q == null
+              ? EmptyState(message: "Chưa có câu nghe Part $_part cho topic này.")
+              : _part == 3
+                  ? _buildPart3(q)
+                  : _buildSingleQuestion(q),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSingleQuestion(ListeningQuestion q) {
+    final labels = ['A', 'B', 'C', 'D'];
+
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(18),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _header(q),
+              const SizedBox(height: 12),
+              FilledButton.icon(
+                onPressed: () => widget.onSpeak(q.audioText),
+                icon: const Icon(Icons.volume_up_rounded),
+                label: const Text('Nghe câu hỏi'),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                q.question,
+                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 12),
+              for (int i = 0; i < q.options.length; i++)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: FilledButton.tonal(
+                    onPressed: _answered ? null : () => _answerSingle(i),
+                    style: FilledButton.styleFrom(
+                      backgroundColor: _singleOptionColor(q, i),
+                      padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                    ),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text('${labels[i]}. ${q.options[i]}'),
+                    ),
+                  ),
+                ),
+              if (_answered) _explanationBox(q),
+              const SizedBox(height: 14),
+              OutlinedButton.icon(
+                onPressed: _nextQuestion,
+                icon: const Icon(Icons.arrow_forward_rounded),
+                label: const Text('Câu tiếp theo'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPart3(ListeningQuestion q) {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(18),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _header(q),
+              const SizedBox(height: 12),
+              FilledButton.icon(
+                onPressed: () => widget.onSpeak(q.audioText),
+                icon: const Icon(Icons.volume_up_rounded),
+                label: const Text('Nghe hội thoại'),
+              ),
+              const SizedBox(height: 16),
+              for (int qi = 0; qi < q.questions.length; qi++) _part3Question(qi, q.questions[qi]),
+              if (_part3Scored.length == q.questions.length) _explanationBox(q),
+              const SizedBox(height: 14),
+              OutlinedButton.icon(
+                onPressed: _nextQuestion,
+                icon: const Icon(Icons.arrow_forward_rounded),
+                label: const Text('Hội thoại tiếp theo'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _part3Question(int questionIndex, ListeningSubQuestion sub) {
+    final answered = _part3Scored.contains(questionIndex);
+    final selected = _part3Answers[questionIndex];
+    final labels = ['A', 'B', 'C', 'D'];
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 18),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.blueGrey.shade50,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            '${questionIndex + 1}. ${sub.question}',
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 10),
+          for (int i = 0; i < sub.options.length; i++)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: FilledButton.tonal(
+                onPressed: answered ? null : () => _answerPart3(questionIndex, i),
+                style: FilledButton.styleFrom(
+                  backgroundColor: !answered
+                      ? null
+                      : i == sub.correctIndex
+                          ? Colors.green.shade100
+                          : i == selected
+                              ? Colors.red.shade100
+                              : null,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                ),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text('${labels[i]}. ${sub.options[i]}'),
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget _header(ListeningQuestion q) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Listening Part ${q.part}',
+          style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 6),
+        Text(q.topic, style: const TextStyle(color: Colors.black54)),
+        const SizedBox(height: 8),
+        Wrap(
+          spacing: 6,
+          runSpacing: 6,
+          children: q.targetWords
+              .map((w) => Chip(
+                    label: Text(w),
+                    visualDensity: VisualDensity.compact,
+                  ))
+              .toList(),
+        ),
+      ],
+    );
+  }
+
+  Widget _explanationBox(ListeningQuestion q) {
+    return Container(
+      margin: const EdgeInsets.only(top: 10),
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Colors.green.shade50,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.green.shade100),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text('Transcript', style: TextStyle(fontWeight: FontWeight.bold)),
+          const SizedBox(height: 6),
+          Text(q.transcript),
+          const SizedBox(height: 12),
+          const Text('Giải thích', style: TextStyle(fontWeight: FontWeight.bold)),
+          const SizedBox(height: 6),
+          Text(q.explanation),
+        ],
+      ),
+    );
+  }
+
+  Color? _singleOptionColor(ListeningQuestion q, int index) {
+    if (!_answered) return null;
+    if (index == q.correctIndex) return Colors.green.shade100;
+    if (index == _selected) return Colors.red.shade100;
+    return null;
   }
 }
 
@@ -1067,7 +1404,6 @@ class _GrammarScreenState extends State<GrammarScreen> {
 
   void _newSession() {
     final copy = [...widget.questions]..shuffle(widget.random);
-
     setState(() {
       _round = copy.take(min(10, copy.length)).toList();
       _index = 0;
@@ -1080,10 +1416,8 @@ class _GrammarScreenState extends State<GrammarScreen> {
 
   void _answer(String option) {
     if (_answered) return;
-
     final q = _round[_index];
     final ok = option == q.correct;
-
     if (ok) {
       widget.onCorrect();
       _correct++;
@@ -1091,7 +1425,6 @@ class _GrammarScreenState extends State<GrammarScreen> {
       widget.onWrong();
       _wrong++;
     }
-
     setState(() {
       _selected = option;
       _answered = true;
@@ -1105,15 +1438,7 @@ class _GrammarScreenState extends State<GrammarScreen> {
         builder: (_) => AlertDialog(
           title: const Text('Hoàn thành'),
           content: Text('Kết quả: Đúng $_correct - Sai $_wrong'),
-          actions: [
-            FilledButton(
-              onPressed: () {
-                Navigator.pop(context);
-                _newSession();
-              },
-              child: const Text('Làm lượt mới'),
-            ),
-          ],
+          actions: [FilledButton(onPressed: () { Navigator.pop(context); _newSession(); }, child: const Text('Làm lượt mới'))],
         ),
       );
     } else {
@@ -1130,7 +1455,6 @@ class _GrammarScreenState extends State<GrammarScreen> {
     if (_round.isEmpty) return const EmptyState(message: 'Chưa có câu hỏi Part 5.');
 
     final q = _round[_index];
-
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Card(
@@ -1141,23 +1465,15 @@ class _GrammarScreenState extends State<GrammarScreen> {
             children: [
               Row(
                 children: [
-                  Expanded(
-                    child: LinearProgressIndicator(value: (_index + 1) / _round.length),
-                  ),
+                  Expanded(child: LinearProgressIndicator(value: (_index + 1) / _round.length)),
                   const SizedBox(width: 12),
                   Text('${_index + 1}/${_round.length}'),
                 ],
               ),
               const SizedBox(height: 12),
-              Text(
-                '✓ $_correct    ✕ $_wrong',
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
+              Text('✓ $_correct    ✕ $_wrong', style: const TextStyle(fontWeight: FontWeight.bold)),
               const SizedBox(height: 20),
-              Text(
-                q.question,
-                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
+              Text(q.question, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               const SizedBox(height: 16),
               for (final option in q.options)
                 Padding(
@@ -1169,28 +1485,18 @@ class _GrammarScreenState extends State<GrammarScreen> {
                       padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                     ),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(option),
-                    ),
+                    child: Align(alignment: Alignment.centerLeft, child: Text(option)),
                   ),
                 ),
               if (_answered) ...[
                 const SizedBox(height: 10),
                 Container(
                   padding: const EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.blueGrey.shade50,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
+                  decoration: BoxDecoration(color: Colors.blueGrey.shade50, borderRadius: BorderRadius.circular(16)),
                   child: Text(q.explanation),
                 ),
                 const SizedBox(height: 14),
-                FilledButton.icon(
-                  onPressed: _next,
-                  icon: const Icon(Icons.arrow_forward),
-                  label: const Text('Tiếp theo'),
-                ),
+                FilledButton.icon(onPressed: _next, icon: const Icon(Icons.arrow_forward), label: const Text('Tiếp theo')),
               ],
             ],
           ),
@@ -1222,11 +1528,7 @@ class EmptyState extends StatelessWidget {
           children: [
             const Icon(Icons.info_outline_rounded, size: 48, color: Colors.blueGrey),
             const SizedBox(height: 12),
-            Text(
-              message,
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 16),
-            ),
+            Text(message, textAlign: TextAlign.center, style: const TextStyle(fontSize: 16)),
           ],
         ),
       ),
