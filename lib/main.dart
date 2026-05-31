@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_tts/flutter_tts.dart';
@@ -97,6 +98,7 @@ class _HomePageState extends State<HomePage> {
   int _tabIndex = 0;
   String _topic = 'Tất cả';
   bool _loading = true;
+  bool _ttsReady = false;
 
   @override
   void initState() {
@@ -104,34 +106,36 @@ class _HomePageState extends State<HomePage> {
     _boot();
   }
 
-  final FlutterTts flutterTts = FlutterTts();
+  Future<void> _boot() async {
+    await _setupTts();
 
-Future<void> setupTts() async {
-  await flutterTts.setLanguage("en-US");
-  await flutterTts.setSpeechRate(0.42);
-  await flutterTts.setVolume(1.0);
-  await flutterTts.setPitch(1.0);
-  await flutterTts.awaitSpeakCompletion(false);
-}
+    final vocabRaw = await rootBundle.loadString('assets/vocabulary.json');
+    final vocabData = jsonDecode(vocabRaw) as List<dynamic>;
+    final words = vocabData
+        .map((e) => VocabWord.fromJson(e as Map<String, dynamic>))
+        .where((w) => w.english.trim().isNotEmpty && w.vietnamese.trim().isNotEmpty)
+        .toList();
 
-Future<void> speak(String text) async {
-  final word = text.trim();
+    final grammarRaw = await rootBundle.loadString('assets/grammar_part5.json');
+    final grammarData = jsonDecode(grammarRaw) as List<dynamic>;
+    final grammar = grammarData
+        .map((e) => GrammarQuestion.fromJson(e as Map<String, dynamic>))
+        .where((q) => q.question.trim().isNotEmpty && q.options.length >= 4)
+        .toList();
 
-  if (word.isEmpty) return;
+    final prefs = await SharedPreferences.getInstance();
+    final countsRaw = prefs.getString('correctCounts') ?? '{}';
+    final countsDecoded = jsonDecode(countsRaw) as Map<String, dynamic>;
 
-  try {
-    await flutterTts.stop();
-
-    await flutterTts.setLanguage("en-US");
-    await flutterTts.setSpeechRate(0.42);
-    await flutterTts.setVolume(1.0);
-    await flutterTts.setPitch(1.0);
-
-    await flutterTts.speak(word);
-  } catch (e) {
-    debugPrint("TTS error: $e");
+    setState(() {
+      _allWords = words;
+      _grammarQuestions = grammar;
+      _score = prefs.getInt('score') ?? 100;
+      _correctCounts = countsDecoded.map((k, v) => MapEntry(k, (v as num).toInt()));
+      _loading = false;
+    });
   }
-}
+
   List<String> get _topics {
     final set = _allWords.map((w) => w.topic).toSet().toList()..sort();
     return ['Tất cả', ...set];
@@ -148,9 +152,80 @@ Future<void> speak(String text) async {
     await prefs.setString('correctCounts', jsonEncode(_correctCounts));
   }
 
+  Future<void> _setupTts() async {
+    try {
+      await _tts.awaitSpeakCompletion(false);
+      await _tts.setLanguage('en-US');
+      await _tts.setVolume(1.0);
+      await _tts.setPitch(1.0);
+
+      // Flutter Web/iPhone Safari dùng Web Speech API, tốc độ đọc phù hợp khác Android.
+      await _tts.setSpeechRate(kIsWeb ? 0.85 : 0.45);
+
+      // Cố gắng chọn giọng tiếng Anh nếu thiết bị/trình duyệt trả về danh sách giọng đọc.
+      final voices = await _tts.getVoices;
+      if (voices is List && voices.isNotEmpty) {
+        Map<dynamic, dynamic>? selectedVoice;
+        for (final voice in voices) {
+          if (voice is Map) {
+            final locale = (voice['locale'] ?? voice['language'] ?? '').toString().toLowerCase();
+            final name = (voice['name'] ?? '').toString().toLowerCase();
+            if (locale.startsWith('en-us') || name.contains('english')) {
+              selectedVoice = voice;
+              break;
+            }
+          }
+        }
+        if (selectedVoice != null && selectedVoice['name'] != null) {
+          await _tts.setVoice({
+            'name': selectedVoice['name'].toString(),
+            'locale': (selectedVoice['locale'] ?? selectedVoice['language'] ?? 'en-US').toString(),
+          });
+        }
+      }
+
+      _ttsReady = true;
+    } catch (e) {
+      debugPrint('TTS setup error: $e');
+      _ttsReady = false;
+    }
+  }
+
   Future<void> _speak(String text) async {
-    await _tts.stop();
-    await _tts.speak(text);
+    final cleanText = text.trim();
+    if (cleanText.isEmpty) return;
+
+    try {
+      if (!_ttsReady) {
+        await _setupTts();
+      }
+
+      await _tts.stop();
+      await _tts.setLanguage('en-US');
+      await _tts.setVolume(1.0);
+      await _tts.setPitch(1.0);
+      await _tts.setSpeechRate(kIsWeb ? 0.85 : 0.45);
+
+      // Delay rất ngắn giúp iPhone/Safari ổn định hơn khi bấm liên tục nhiều từ.
+      await Future<void>.delayed(const Duration(milliseconds: 80));
+      await _tts.speak(cleanText);
+    } catch (e) {
+      debugPrint('TTS speak error: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Không phát được âm thanh. Hãy mở bằng Safari/Chrome và bật âm lượng.'),
+            duration: Duration(seconds: 2),
+          ),
+        );
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _tts.stop();
+    super.dispose();
   }
 
   void _addScore(int delta) {
