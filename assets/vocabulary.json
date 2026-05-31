@@ -1,1477 +1,1477 @@
 [
   {
     "id": 1,
-    "topic": "General",
+    "topic": "Contract - Hợp đồng",
     "english": "Contract",
     "vietnamese": "Hợp đồng"
   },
   {
     "id": 2,
-    "topic": "General",
+    "topic": "Contract - Hợp đồng",
     "english": "Agreement",
     "vietnamese": "Thỏa thuận"
   },
   {
     "id": 3,
-    "topic": "General",
+    "topic": "Contract - Hợp đồng",
     "english": "Term",
     "vietnamese": "Điều khoản"
   },
   {
     "id": 4,
-    "topic": "General",
+    "topic": "Contract - Hợp đồng",
     "english": "Sign",
     "vietnamese": "Ký"
   },
   {
     "id": 5,
-    "topic": "General",
+    "topic": "Contract - Hợp đồng",
     "english": "Clause",
     "vietnamese": "Điều khoản"
   },
   {
     "id": 6,
-    "topic": "General",
+    "topic": "Contract - Hợp đồng",
     "english": "Condition",
     "vietnamese": "Điều kiện"
   },
   {
     "id": 7,
-    "topic": "General",
+    "topic": "Contract - Hợp đồng",
     "english": "Party",
     "vietnamese": "Bên trong hợp đồng"
   },
   {
     "id": 8,
-    "topic": "General",
+    "topic": "Contract - Hợp đồng",
     "english": "Cancel",
     "vietnamese": "Hủy bỏ"
   },
   {
     "id": 9,
-    "topic": "General",
+    "topic": "Contract - Hợp đồng",
     "english": "Pay",
     "vietnamese": "Thanh toán"
   },
   {
     "id": 10,
-    "topic": "General",
+    "topic": "Contract - Hợp đồng",
     "english": "Renew",
     "vietnamese": "Gia hạn"
   },
   {
     "id": 11,
-    "topic": "General",
+    "topic": "Contract - Hợp đồng",
     "english": "Offer",
     "vietnamese": "Lời đề nghị"
   },
   {
     "id": 12,
-    "topic": "General",
+    "topic": "Contract - Hợp đồng",
     "english": "Binding",
     "vietnamese": "Ràng buộc"
   },
   {
     "id": 13,
-    "topic": "General",
+    "topic": "Contract - Hợp đồng",
     "english": "Legal",
     "vietnamese": "Hợp pháp"
   },
   {
     "id": 14,
-    "topic": "General",
+    "topic": "Contract - Hợp đồng",
     "english": "Break",
     "vietnamese": "Vi phạm, phá vỡ hợp đồng"
   },
   {
     "id": 15,
-    "topic": "General",
+    "topic": "Contract - Hợp đồng",
     "english": "Change",
     "vietnamese": "Thay đổi"
   },
   {
     "id": 16,
-    "topic": "General",
+    "topic": "Contract - Hợp đồng",
     "english": "Deadline",
     "vietnamese": "Hạn chót"
   },
   {
     "id": 17,
-    "topic": "General",
+    "topic": "Contract - Hợp đồng",
     "english": "Terminate",
     "vietnamese": "Chấm dứt hợp đồng"
   },
   {
     "id": 18,
-    "topic": "General",
+    "topic": "Contract - Hợp đồng",
     "english": "Payment",
     "vietnamese": "Thanh toán"
   },
   {
     "id": 19,
-    "topic": "General",
+    "topic": "Contract - Hợp đồng",
     "english": "Dispute",
     "vietnamese": "Tranh chấp"
   },
   {
     "id": 20,
-    "topic": "General",
+    "topic": "Contract - Hợp đồng",
     "english": "Witness",
     "vietnamese": "Người chứng kiến"
   },
   {
     "id": 21,
-    "topic": "General",
+    "topic": "Office - Văn phòng",
     "english": "Office",
     "vietnamese": "Văn phòng"
   },
   {
     "id": 22,
-    "topic": "General",
+    "topic": "Office - Văn phòng",
     "english": "Desk",
     "vietnamese": "Bàn làm việc"
   },
   {
     "id": 23,
-    "topic": "General",
+    "topic": "Office - Văn phòng",
     "english": "Chair",
     "vietnamese": "Ghế"
   },
   {
     "id": 24,
-    "topic": "General",
+    "topic": "Office - Văn phòng",
     "english": "Computer",
     "vietnamese": "Máy tính"
   },
   {
     "id": 25,
-    "topic": "General",
+    "topic": "Office - Văn phòng",
     "english": "Email",
     "vietnamese": "Thư điện tử"
   },
   {
     "id": 26,
-    "topic": "General",
+    "topic": "Office - Văn phòng",
     "english": "File",
     "vietnamese": "Hồ sơ, tài liệu"
   },
   {
     "id": 27,
-    "topic": "General",
+    "topic": "Office - Văn phòng",
     "english": "Meeting",
     "vietnamese": "Cuộc họp"
   },
   {
     "id": 28,
-    "topic": "General",
+    "topic": "Office - Văn phòng",
     "english": "Document",
     "vietnamese": "Tài liệu"
   },
   {
     "id": 29,
-    "topic": "General",
+    "topic": "Office - Văn phòng",
     "english": "Phone",
     "vietnamese": "Điện thoại"
   },
   {
     "id": 30,
-    "topic": "General",
+    "topic": "Office - Văn phòng",
     "english": "Call",
     "vietnamese": "Gọi"
   },
   {
     "id": 31,
-    "topic": "General",
+    "topic": "Office - Văn phòng",
     "english": "Schedule",
     "vietnamese": "Lên lịch, sắp xếp"
   },
   {
     "id": 32,
-    "topic": "General",
+    "topic": "Office - Văn phòng",
     "english": "Copy",
     "vietnamese": "Bản sao"
   },
   {
     "id": 33,
-    "topic": "General",
+    "topic": "Office - Văn phòng",
     "english": "Printer",
     "vietnamese": "Máy in"
   },
   {
     "id": 34,
-    "topic": "General",
+    "topic": "Office - Văn phòng",
     "english": "Report",
     "vietnamese": "Báo cáo"
   },
   {
     "id": 35,
-    "topic": "General",
+    "topic": "Office - Văn phòng",
     "english": "Folder",
     "vietnamese": "Túi đựng tài liệu"
   },
   {
     "id": 36,
-    "topic": "General",
+    "topic": "Office - Văn phòng",
     "english": "Team",
     "vietnamese": "Đội nhóm, nhóm"
   },
   {
     "id": 37,
-    "topic": "General",
+    "topic": "Office - Văn phòng",
     "english": "Appointment",
     "vietnamese": "Cuộc hẹn"
   },
   {
     "id": 38,
-    "topic": "General",
+    "topic": "Office - Văn phòng",
     "english": "Assistant",
     "vietnamese": "Trợ lý"
   },
   {
     "id": 39,
-    "topic": "General",
+    "topic": "Office - Văn phòng",
     "english": "Task",
     "vietnamese": "Nhiệm vụ"
   },
   {
     "id": 40,
-    "topic": "General",
+    "topic": "Marketing - Tiếp thị",
     "english": "Market",
     "vietnamese": "Thị trường"
   },
   {
     "id": 41,
-    "topic": "General",
+    "topic": "Marketing - Tiếp thị",
     "english": "Product",
     "vietnamese": "Sản phẩm"
   },
   {
     "id": 42,
-    "topic": "General",
+    "topic": "Marketing - Tiếp thị",
     "english": "Sell",
     "vietnamese": "Bán"
   },
   {
     "id": 43,
-    "topic": "General",
+    "topic": "Marketing - Tiếp thị",
     "english": "Advertise",
     "vietnamese": "Quảng cáo"
   },
   {
     "id": 44,
-    "topic": "General",
+    "topic": "Marketing - Tiếp thị",
     "english": "Customer",
     "vietnamese": "Khách hàng"
   },
   {
     "id": 45,
-    "topic": "General",
+    "topic": "Marketing - Tiếp thị",
     "english": "Brand",
     "vietnamese": "Thương hiệu"
   },
   {
     "id": 46,
-    "topic": "General",
+    "topic": "Marketing - Tiếp thị",
     "english": "Strategy",
     "vietnamese": "Chiến lược"
   },
   {
     "id": 47,
-    "topic": "General",
+    "topic": "Marketing - Tiếp thị",
     "english": "Campaign",
     "vietnamese": "Chiến dịch"
   },
   {
     "id": 48,
-    "topic": "General",
+    "topic": "Marketing - Tiếp thị",
     "english": "Price",
     "vietnamese": "Giá"
   },
   {
     "id": 49,
-    "topic": "General",
+    "topic": "Marketing - Tiếp thị",
     "english": "Target",
     "vietnamese": "Mục tiêu"
   },
   {
     "id": 50,
-    "topic": "General",
+    "topic": "Marketing - Tiếp thị",
     "english": "Promotion",
     "vietnamese": "Khuyến mãi"
   },
   {
     "id": 51,
-    "topic": "General",
+    "topic": "Marketing - Tiếp thị",
     "english": "Reach",
     "vietnamese": "Tiếp cận"
   },
   {
     "id": 52,
-    "topic": "General",
+    "topic": "Marketing - Tiếp thị",
     "english": "Sales",
     "vietnamese": "Doanh thu"
   },
   {
     "id": 53,
-    "topic": "General",
+    "topic": "Marketing - Tiếp thị",
     "english": "Launch",
     "vietnamese": "Ra mắt"
   },
   {
     "id": 54,
-    "topic": "General",
+    "topic": "Marketing - Tiếp thị",
     "english": "Discount",
     "vietnamese": "Giảm giá"
   },
   {
     "id": 55,
-    "topic": "General",
+    "topic": "Marketing - Tiếp thị",
     "english": "Research",
     "vietnamese": "Nghiên cứu"
   },
   {
     "id": 56,
-    "topic": "General",
+    "topic": "Marketing - Tiếp thị",
     "english": "Competitor",
     "vietnamese": "Đối thủ cạnh tranh"
   },
   {
     "id": 57,
-    "topic": "General",
+    "topic": "Marketing - Tiếp thị",
     "english": "Audience",
     "vietnamese": "Khán giả, đối tượng khách hàng"
   },
   {
     "id": 58,
-    "topic": "General",
+    "topic": "Marketing - Tiếp thị",
     "english": "Media",
     "vietnamese": "Phương tiện truyền thông"
   },
   {
     "id": 59,
-    "topic": "General",
+    "topic": "Marketing - Tiếp thị",
     "english": "Influence",
     "vietnamese": "Ảnh hưởng"
   },
   {
     "id": 60,
-    "topic": "General",
+    "topic": "Computer - Máy tính",
     "english": "Screen",
     "vietnamese": "Màn hình"
   },
   {
     "id": 61,
-    "topic": "General",
+    "topic": "Computer - Máy tính",
     "english": "Keyboard",
     "vietnamese": "Bàn phím"
   },
   {
     "id": 62,
-    "topic": "General",
+    "topic": "Computer - Máy tính",
     "english": "Mouse",
     "vietnamese": "Chuột"
   },
   {
     "id": 63,
-    "topic": "General",
+    "topic": "Computer - Máy tính",
     "english": "Software",
     "vietnamese": "Phần mềm"
   },
   {
     "id": 64,
-    "topic": "General",
+    "topic": "Computer - Máy tính",
     "english": "Hardware",
     "vietnamese": "Phần cứng"
   },
   {
     "id": 65,
-    "topic": "General",
+    "topic": "Computer - Máy tính",
     "english": "Program",
     "vietnamese": "Chương trình"
   },
   {
     "id": 66,
-    "topic": "General",
+    "topic": "Computer - Máy tính",
     "english": "Network",
     "vietnamese": "Mạng"
   },
   {
     "id": 67,
-    "topic": "General",
+    "topic": "Computer - Máy tính",
     "english": "Website",
     "vietnamese": "Trang web"
   },
   {
     "id": 68,
-    "topic": "General",
+    "topic": "Computer - Máy tính",
     "english": "Download",
     "vietnamese": "Tải xuống"
   },
   {
     "id": 69,
-    "topic": "General",
+    "topic": "Computer - Máy tính",
     "english": "Upload",
     "vietnamese": "Tải lên"
   },
   {
     "id": 70,
-    "topic": "General",
+    "topic": "Computer - Máy tính",
     "english": "Browser",
     "vietnamese": "Trình duyệt"
   },
   {
     "id": 71,
-    "topic": "General",
+    "topic": "Computer - Máy tính",
     "english": "Application",
     "vietnamese": "Ứng dụng"
   },
   {
     "id": 72,
-    "topic": "General",
+    "topic": "Computer - Máy tính",
     "english": "Virus",
     "vietnamese": "Vi-rút"
   },
   {
     "id": 73,
-    "topic": "General",
+    "topic": "Computer - Máy tính",
     "english": "Search",
     "vietnamese": "Tìm kiếm"
   },
   {
     "id": 74,
-    "topic": "General",
+    "topic": "Computer - Máy tính",
     "english": "Update",
     "vietnamese": "Cập nhật"
   },
   {
     "id": 75,
-    "topic": "General",
+    "topic": "Computer - Máy tính",
     "english": "System",
     "vietnamese": "Hệ thống"
   },
   {
     "id": 76,
-    "topic": "General",
+    "topic": "Computer - Máy tính",
     "english": "Security",
     "vietnamese": "Bảo mật"
   },
   {
     "id": 77,
-    "topic": "General",
+    "topic": "Computer - Máy tính",
     "english": "Password",
     "vietnamese": "Mật khẩu"
   },
   {
     "id": 78,
-    "topic": "General",
+    "topic": "Warranties - Bảo hành",
     "english": "Warranty",
     "vietnamese": "Bảo hành"
   },
   {
     "id": 79,
-    "topic": "General",
+    "topic": "Warranties - Bảo hành",
     "english": "Guarantee",
     "vietnamese": "Cam kết, bảo hành"
   },
   {
     "id": 80,
-    "topic": "General",
+    "topic": "Warranties - Bảo hành",
     "english": "Coverage",
     "vietnamese": "Phạm vi bảo hành"
   },
   {
     "id": 81,
-    "topic": "General",
+    "topic": "Warranties - Bảo hành",
     "english": "Repair",
     "vietnamese": "Sửa chữa"
   },
   {
     "id": 82,
-    "topic": "General",
+    "topic": "Warranties - Bảo hành",
     "english": "Replace",
     "vietnamese": "Thay thế"
   },
   {
     "id": 83,
-    "topic": "General",
+    "topic": "Warranties - Bảo hành",
     "english": "Defect",
     "vietnamese": "Lỗi, khuyết điểm"
   },
   {
     "id": 84,
-    "topic": "General",
+    "topic": "Warranties - Bảo hành",
     "english": "Claim",
     "vietnamese": "Đơn yêu cầu, khiếu nại"
   },
   {
     "id": 85,
-    "topic": "General",
+    "topic": "Warranties - Bảo hành",
     "english": "Period",
     "vietnamese": "Thời gian"
   },
   {
     "id": 86,
-    "topic": "General",
+    "topic": "Warranties - Bảo hành",
     "english": "Terms",
     "vietnamese": "Điều khoản"
   },
   {
     "id": 87,
-    "topic": "General",
+    "topic": "Warranties - Bảo hành",
     "english": "Policy",
     "vietnamese": "Chính sách"
   },
   {
     "id": 88,
-    "topic": "General",
+    "topic": "Warranties - Bảo hành",
     "english": "Faulty",
     "vietnamese": "Lỗi, hỏng"
   },
   {
     "id": 89,
-    "topic": "General",
+    "topic": "Warranties - Bảo hành",
     "english": "Extend",
     "vietnamese": "Kéo dài"
   },
   {
     "id": 90,
-    "topic": "General",
+    "topic": "Warranties - Bảo hành",
     "english": "Refund",
     "vietnamese": "Hoàn tiền"
   },
   {
     "id": 91,
-    "topic": "General",
+    "topic": "Warranties - Bảo hành",
     "english": "Valid",
     "vietnamese": "Hợp lệ, có giá trị"
   },
   {
     "id": 92,
-    "topic": "General",
+    "topic": "Warranties - Bảo hành",
     "english": "Exclusion",
     "vietnamese": "Điều khoản loại trừ"
   },
   {
     "id": 93,
-    "topic": "General",
+    "topic": "Warranties - Bảo hành",
     "english": "Maintenance",
     "vietnamese": "Bảo dưỡng"
   },
   {
     "id": 94,
-    "topic": "General",
+    "topic": "Warranties - Bảo hành",
     "english": "Transfer",
     "vietnamese": "Chuyển nhượng"
   },
   {
     "id": 95,
-    "topic": "General",
+    "topic": "Warranties - Bảo hành",
     "english": "Service",
     "vietnamese": "Dịch vụ"
   },
   {
     "id": 96,
-    "topic": "General",
+    "topic": "Correspondence - Thư tín",
     "english": "Letter",
     "vietnamese": "Thư"
   },
   {
     "id": 97,
-    "topic": "General",
+    "topic": "Correspondence - Thư tín",
     "english": "Address",
     "vietnamese": "Địa chỉ"
   },
   {
     "id": 98,
-    "topic": "General",
+    "topic": "Correspondence - Thư tín",
     "english": "Reply",
     "vietnamese": "Trả lời"
   },
   {
     "id": 99,
-    "topic": "General",
+    "topic": "Correspondence - Thư tín",
     "english": "Message",
     "vietnamese": "Tin nhắn, thông điệp"
   },
   {
     "id": 100,
-    "topic": "General",
+    "topic": "Correspondence - Thư tín",
     "english": "Correspond",
     "vietnamese": "Thư tín, liên lạc"
   },
   {
     "id": 101,
-    "topic": "General",
+    "topic": "Correspondence - Thư tín",
     "english": "Post",
     "vietnamese": "Thư gửi qua bưu điện"
   },
   {
     "id": 102,
-    "topic": "General",
+    "topic": "Correspondence - Thư tín",
     "english": "Sender",
     "vietnamese": "Người gửi"
   },
   {
     "id": 103,
-    "topic": "General",
+    "topic": "Correspondence - Thư tín",
     "english": "Recipient",
     "vietnamese": "Người nhận"
   },
   {
     "id": 104,
-    "topic": "General",
+    "topic": "Correspondence - Thư tín",
     "english": "Subject",
     "vietnamese": "Chủ đề"
   },
   {
     "id": 105,
-    "topic": "General",
+    "topic": "Correspondence - Thư tín",
     "english": "Attach",
     "vietnamese": "Đính kèm"
   },
   {
     "id": 106,
-    "topic": "General",
+    "topic": "Correspondence - Thư tín",
     "english": "Formal",
     "vietnamese": "Chính thức"
   },
   {
     "id": 107,
-    "topic": "General",
+    "topic": "Correspondence - Thư tín",
     "english": "Informal",
     "vietnamese": "Thân mật, không chính thức"
   },
   {
     "id": 108,
-    "topic": "General",
+    "topic": "Correspondence - Thư tín",
     "english": "Send",
     "vietnamese": "Gửi"
   },
   {
     "id": 109,
-    "topic": "General",
+    "topic": "Correspondence - Thư tín",
     "english": "Delivery",
     "vietnamese": "Sự giao hàng"
   },
   {
     "id": 110,
-    "topic": "General",
+    "topic": "Correspondence - Thư tín",
     "english": "Postman",
     "vietnamese": "Người đưa thư"
   },
   {
     "id": 111,
-    "topic": "General",
+    "topic": "Correspondence - Thư tín",
     "english": "Envelope",
     "vietnamese": "Bao thư"
   },
   {
     "id": 112,
-    "topic": "General",
+    "topic": "Correspondence - Thư tín",
     "english": "Signature",
     "vietnamese": "Chữ ký"
   },
   {
     "id": 113,
-    "topic": "General",
+    "topic": "Correspondence - Thư tín",
     "english": "Forward",
     "vietnamese": "Chuyển tiếp"
   },
   {
     "id": 114,
-    "topic": "General",
+    "topic": "Salaries and Benefits - Lương và phúc lợi",
     "english": "Salary",
     "vietnamese": "Lương"
   },
   {
     "id": 115,
-    "topic": "General",
+    "topic": "Salaries and Benefits - Lương và phúc lợi",
     "english": "Wage",
     "vietnamese": "Tiền công"
   },
   {
     "id": 116,
-    "topic": "General",
+    "topic": "Salaries and Benefits - Lương và phúc lợi",
     "english": "Bonus",
     "vietnamese": "Thưởng"
   },
   {
     "id": 117,
-    "topic": "General",
+    "topic": "Salaries and Benefits - Lương và phúc lợi",
     "english": "Commission",
     "vietnamese": "Hoa hồng"
   },
   {
     "id": 118,
-    "topic": "General",
+    "topic": "Salaries and Benefits - Lương và phúc lợi",
     "english": "Raise",
     "vietnamese": "Tăng lương"
   },
   {
     "id": 119,
-    "topic": "General",
+    "topic": "Salaries and Benefits - Lương và phúc lợi",
     "english": "Overtime",
     "vietnamese": "Làm thêm giờ"
   },
   {
     "id": 120,
-    "topic": "General",
+    "topic": "Salaries and Benefits - Lương và phúc lợi",
     "english": "Pension",
     "vietnamese": "Lương hưu"
   },
   {
     "id": 121,
-    "topic": "General",
+    "topic": "Salaries and Benefits - Lương và phúc lợi",
     "english": "Health",
     "vietnamese": "Sức khỏe"
   },
   {
     "id": 122,
-    "topic": "General",
+    "topic": "Salaries and Benefits - Lương và phúc lợi",
     "english": "Insurance",
     "vietnamese": "Bảo hiểm"
   },
   {
     "id": 123,
-    "topic": "General",
+    "topic": "Salaries and Benefits - Lương và phúc lợi",
     "english": "Allowance",
     "vietnamese": "Tiền trợ cấp"
   },
   {
     "id": 124,
-    "topic": "General",
+    "topic": "Salaries and Benefits - Lương và phúc lợi",
     "english": "Benefit",
     "vietnamese": "Phúc lợi"
   },
   {
     "id": 125,
-    "topic": "General",
+    "topic": "Salaries and Benefits - Lương và phúc lợi",
     "english": "Compensation",
     "vietnamese": "Tiền bồi thường"
   },
   {
     "id": 126,
-    "topic": "General",
+    "topic": "Salaries and Benefits - Lương và phúc lợi",
     "english": "Salary scale",
     "vietnamese": "Thang lương"
   },
   {
     "id": 127,
-    "topic": "General",
+    "topic": "Salaries and Benefits - Lương và phúc lợi",
     "english": "Deduction",
     "vietnamese": "Khấu trừ"
   },
   {
     "id": 128,
-    "topic": "General",
+    "topic": "Salaries and Benefits - Lương và phúc lợi",
     "english": "Tax",
     "vietnamese": "Thuế"
   },
   {
     "id": 129,
-    "topic": "General",
+    "topic": "Salaries and Benefits - Lương và phúc lợi",
     "english": "Paid leave",
     "vietnamese": "Nghỉ phép có lương"
   },
   {
     "id": 130,
-    "topic": "General",
+    "topic": "Salaries and Benefits - Lương và phúc lợi",
     "english": "Vacation",
     "vietnamese": "Nghỉ phép"
   },
   {
     "id": 131,
-    "topic": "General",
+    "topic": "Salaries and Benefits - Lương và phúc lợi",
     "english": "Employee",
     "vietnamese": "Nhân viên"
   },
   {
     "id": 132,
-    "topic": "General",
+    "topic": "Conference - Hội nghị",
     "english": "Conference",
     "vietnamese": "Hội nghị"
   },
   {
     "id": 133,
-    "topic": "General",
+    "topic": "Conference - Hội nghị",
     "english": "Speaker",
     "vietnamese": "Diễn giả, người phát biểu"
   },
   {
     "id": 134,
-    "topic": "General",
+    "topic": "Conference - Hội nghị",
     "english": "Agenda",
     "vietnamese": "Chương trình nghị sự"
   },
   {
     "id": 135,
-    "topic": "General",
+    "topic": "Conference - Hội nghị",
     "english": "Presentation",
     "vietnamese": "Bài thuyết trình"
   },
   {
     "id": 136,
-    "topic": "General",
+    "topic": "Conference - Hội nghị",
     "english": "Topic",
     "vietnamese": "Chủ đề"
   },
   {
     "id": 137,
-    "topic": "General",
+    "topic": "Conference - Hội nghị",
     "english": "Panel",
     "vietnamese": "Ban hội thảo"
   },
   {
     "id": 138,
-    "topic": "General",
+    "topic": "Conference - Hội nghị",
     "english": "Discussion",
     "vietnamese": "Cuộc thảo luận"
   },
   {
     "id": 139,
-    "topic": "General",
+    "topic": "Conference - Hội nghị",
     "english": "Workshop",
     "vietnamese": "Hội thảo, lớp học"
   },
   {
     "id": 140,
-    "topic": "General",
+    "topic": "Conference - Hội nghị",
     "english": "Attendee",
     "vietnamese": "Người tham dự"
   },
   {
     "id": 141,
-    "topic": "General",
+    "topic": "Conference - Hội nghị",
     "english": "Organize",
     "vietnamese": "Tổ chức"
   },
   {
     "id": 142,
-    "topic": "General",
+    "topic": "Conference - Hội nghị",
     "english": "Register",
     "vietnamese": "Đăng ký"
   },
   {
     "id": 143,
-    "topic": "General",
+    "topic": "Conference - Hội nghị",
     "english": "Venue",
     "vietnamese": "Địa điểm tổ chức"
   },
   {
     "id": 144,
-    "topic": "General",
+    "topic": "Conference - Hội nghị",
     "english": "Networking",
     "vietnamese": "Kết nối, giao lưu"
   },
   {
     "id": 145,
-    "topic": "General",
+    "topic": "Conference - Hội nghị",
     "english": "Seminar",
     "vietnamese": "Hội thảo, lớp học"
   },
   {
     "id": 146,
-    "topic": "General",
+    "topic": "Conference - Hội nghị",
     "english": "Moderator",
     "vietnamese": "Người điều hành"
   },
   {
     "id": 147,
-    "topic": "General",
+    "topic": "Invoice - Hóa đơn",
     "english": "Invoice",
     "vietnamese": "Hóa đơn"
   },
   {
     "id": 148,
-    "topic": "General",
+    "topic": "Invoice - Hóa đơn",
     "english": "Bill",
     "vietnamese": "Hóa đơn thanh toán"
   },
   {
     "id": 149,
-    "topic": "General",
+    "topic": "Invoice - Hóa đơn",
     "english": "Amount",
     "vietnamese": "Số tiền"
   },
   {
     "id": 150,
-    "topic": "General",
+    "topic": "Invoice - Hóa đơn",
     "english": "Due",
     "vietnamese": "Đến hạn"
   },
   {
     "id": 151,
-    "topic": "General",
+    "topic": "Invoice - Hóa đơn",
     "english": "Charge",
     "vietnamese": "Phí, khoản chi phí"
   },
   {
     "id": 152,
-    "topic": "General",
+    "topic": "Invoice - Hóa đơn",
     "english": "Receipt",
     "vietnamese": "Hóa đơn biên nhận"
   },
   {
     "id": 153,
-    "topic": "General",
+    "topic": "Invoice - Hóa đơn",
     "english": "Credit",
     "vietnamese": "Tín dụng, khoản tín dụng"
   },
   {
     "id": 154,
-    "topic": "General",
+    "topic": "Invoice - Hóa đơn",
     "english": "Balance",
     "vietnamese": "Số dư"
   },
   {
     "id": 155,
-    "topic": "General",
+    "topic": "Invoice - Hóa đơn",
     "english": "Due date",
     "vietnamese": "Ngày đáo hạn"
   },
   {
     "id": 156,
-    "topic": "General",
+    "topic": "Invoice - Hóa đơn",
     "english": "Late fee",
     "vietnamese": "Phí trễ"
   },
   {
     "id": 157,
-    "topic": "General",
+    "topic": "Invoice - Hóa đơn",
     "english": "Total",
     "vietnamese": "Tổng cộng"
   },
   {
     "id": 158,
-    "topic": "General",
+    "topic": "Invoice - Hóa đơn",
     "english": "Payable",
     "vietnamese": "Có thể thanh toán"
   },
   {
     "id": 159,
-    "topic": "General",
+    "topic": "Invoice - Hóa đơn",
     "english": "Account",
     "vietnamese": "Tài khoản"
   },
   {
     "id": 160,
-    "topic": "General",
+    "topic": "Invoice - Hóa đơn",
     "english": "Payment method",
     "vietnamese": "Phương thức thanh toán"
   },
   {
     "id": 161,
-    "topic": "General",
+    "topic": "Invoice - Hóa đơn",
     "english": "Due balance",
     "vietnamese": "Số dư phải thanh toán"
   },
   {
     "id": 162,
-    "topic": "General",
+    "topic": "Invoice - Hóa đơn",
     "english": "Verify",
     "vietnamese": "Xác nhận"
   },
   {
     "id": 163,
-    "topic": "General",
+    "topic": "Inventory - Hàng hóa",
     "english": "Stock",
     "vietnamese": "Hàng hóa, hàng tồn kho"
   },
   {
     "id": 164,
-    "topic": "General",
+    "topic": "Inventory - Hàng hóa",
     "english": "Goods",
     "vietnamese": "Hàng hóa"
   },
   {
     "id": 165,
-    "topic": "General",
+    "topic": "Inventory - Hàng hóa",
     "english": "Order",
     "vietnamese": "Đơn hàng"
   },
   {
     "id": 166,
-    "topic": "General",
+    "topic": "Inventory - Hàng hóa",
     "english": "Warehouse",
     "vietnamese": "Kho hàng"
   },
   {
     "id": 167,
-    "topic": "General",
+    "topic": "Inventory - Hàng hóa",
     "english": "Item",
     "vietnamese": "Mặt hàng, món hàng"
   },
   {
     "id": 168,
-    "topic": "General",
+    "topic": "Inventory - Hàng hóa",
     "english": "Restock",
     "vietnamese": "Cung cấp lại hàng hóa"
   },
   {
     "id": 169,
-    "topic": "General",
+    "topic": "Inventory - Hàng hóa",
     "english": "Buy",
     "vietnamese": "Mua"
   },
   {
     "id": 170,
-    "topic": "General",
+    "topic": "Inventory - Hàng hóa",
     "english": "Stockroom",
     "vietnamese": "Phòng kho"
   },
   {
     "id": 171,
-    "topic": "General",
+    "topic": "Inventory - Hàng hóa",
     "english": "Return",
     "vietnamese": "Trả lại"
   },
   {
     "id": 172,
-    "topic": "General",
+    "topic": "Inventory - Hàng hóa",
     "english": "Exchange",
     "vietnamese": "Đổi lại"
   },
   {
     "id": 173,
-    "topic": "General",
+    "topic": "Inventory - Hàng hóa",
     "english": "Label",
     "vietnamese": "Nhãn, mác"
   },
   {
     "id": 174,
-    "topic": "General",
+    "topic": "Inventory - Hàng hóa",
     "english": "Package",
     "vietnamese": "Gói, kiện hàng"
   },
   {
     "id": 175,
-    "topic": "General",
+    "topic": "Inventory - Hàng hóa",
     "english": "Inventory",
     "vietnamese": "Hàng hóa, kiểm kê kho hàng"
   },
   {
     "id": 176,
-    "topic": "General",
+    "topic": "Inventory - Hàng hóa",
     "english": "Supply",
     "vietnamese": "Cung cấp, nguồn cung"
   },
   {
     "id": 177,
-    "topic": "General",
+    "topic": "Job Advertising and Recruiting - Việc làm và tuyển dụng",
     "english": "Advertisement",
     "vietnamese": "Quảng cáo việc làm"
   },
   {
     "id": 178,
-    "topic": "General",
+    "topic": "Job Advertising and Recruiting - Việc làm và tuyển dụng",
     "english": "Recruit",
     "vietnamese": "Tuyển dụng"
   },
   {
     "id": 179,
-    "topic": "General",
+    "topic": "Job Advertising and Recruiting - Việc làm và tuyển dụng",
     "english": "Vacancy",
     "vietnamese": "Vị trí tuyển dụng"
   },
   {
     "id": 180,
-    "topic": "General",
+    "topic": "Job Advertising and Recruiting - Việc làm và tuyển dụng",
     "english": "Applicant",
     "vietnamese": "Người ứng tuyển"
   },
   {
     "id": 181,
-    "topic": "General",
+    "topic": "Job Advertising and Recruiting - Việc làm và tuyển dụng",
     "english": "Position",
     "vietnamese": "Vị trí"
   },
   {
     "id": 182,
-    "topic": "General",
+    "topic": "Job Advertising and Recruiting - Việc làm và tuyển dụng",
     "english": "Job opening",
     "vietnamese": "Cơ hội việc làm"
   },
   {
     "id": 183,
-    "topic": "General",
+    "topic": "Job Advertising and Recruiting - Việc làm và tuyển dụng",
     "english": "Hiring",
     "vietnamese": "Tuyển dụng"
   },
   {
     "id": 184,
-    "topic": "General",
+    "topic": "Job Advertising and Recruiting - Việc làm và tuyển dụng",
     "english": "Job listing",
     "vietnamese": "Danh sách việc làm"
   },
   {
     "id": 185,
-    "topic": "General",
+    "topic": "Job Advertising and Recruiting - Việc làm và tuyển dụng",
     "english": "Employer",
     "vietnamese": "Nhà tuyển dụng"
   },
   {
     "id": 186,
-    "topic": "General",
+    "topic": "Job Advertising and Recruiting - Việc làm và tuyển dụng",
     "english": "Reference",
     "vietnamese": "Thư giới thiệu"
   },
   {
     "id": 187,
-    "topic": "General",
+    "topic": "Job Advertising and Recruiting - Việc làm và tuyển dụng",
     "english": "Interview",
     "vietnamese": "Cuộc phỏng vấn"
   },
   {
     "id": 188,
-    "topic": "General",
+    "topic": "Job Advertising and Recruiting - Việc làm và tuyển dụng",
     "english": "Experience",
     "vietnamese": "Kinh nghiệm"
   },
   {
     "id": 189,
-    "topic": "General",
+    "topic": "Job Advertising and Recruiting - Việc làm và tuyển dụng",
     "english": "Full-time",
     "vietnamese": "Toàn thời gian"
   },
   {
     "id": 190,
-    "topic": "General",
+    "topic": "Job Advertising and Recruiting - Việc làm và tuyển dụng",
     "english": "Part-time",
     "vietnamese": "Bán thời gian"
   },
   {
     "id": 191,
-    "topic": "General",
+    "topic": "Job Advertising and Recruiting - Việc làm và tuyển dụng",
     "english": "Qualification",
     "vietnamese": "Trình độ chuyên môn"
   },
   {
     "id": 192,
-    "topic": "General",
+    "topic": "Job Advertising and Recruiting - Việc làm và tuyển dụng",
     "english": "Resume",
     "vietnamese": "Sơ yếu lý lịch"
   },
   {
     "id": 193,
-    "topic": "General",
+    "topic": "Applying and Interviewing - Ứng tuyển và phỏng vấn",
     "english": "Candidate",
     "vietnamese": "Ứng viên"
   },
   {
     "id": 194,
-    "topic": "General",
+    "topic": "Applying and Interviewing - Ứng tuyển và phỏng vấn",
     "english": "Job offer",
     "vietnamese": "Lời mời làm việc"
   },
   {
     "id": 195,
-    "topic": "General",
+    "topic": "Applying and Interviewing - Ứng tuyển và phỏng vấn",
     "english": "Skill",
     "vietnamese": "Kỹ năng"
   },
   {
     "id": 196,
-    "topic": "General",
+    "topic": "Applying and Interviewing - Ứng tuyển và phỏng vấn",
     "english": "Benefits",
     "vietnamese": "Phúc lợi"
   },
   {
     "id": 197,
-    "topic": "General",
+    "topic": "Applying and Interviewing - Ứng tuyển và phỏng vấn",
     "english": "Interviewer",
     "vietnamese": "Người phỏng vấn"
   },
   {
     "id": 198,
-    "topic": "General",
+    "topic": "Applying and Interviewing - Ứng tuyển và phỏng vấn",
     "english": "Job description",
     "vietnamese": "Mô tả công việc"
   },
   {
     "id": 199,
-    "topic": "General",
+    "topic": "Banking - Ngân hàng",
     "english": "Deposit",
     "vietnamese": "Khoản tiền gửi"
   },
   {
     "id": 200,
-    "topic": "General",
+    "topic": "Banking - Ngân hàng",
     "english": "Withdraw",
     "vietnamese": "Rút tiền"
   },
   {
     "id": 201,
-    "topic": "General",
+    "topic": "Banking - Ngân hàng",
     "english": "Loan",
     "vietnamese": "Khoản vay"
   },
   {
     "id": 202,
-    "topic": "General",
+    "topic": "Banking - Ngân hàng",
     "english": "Interest",
     "vietnamese": "Lãi suất"
   },
   {
     "id": 203,
-    "topic": "General",
+    "topic": "Banking - Ngân hàng",
     "english": "Transaction",
     "vietnamese": "Giao dịch"
   },
   {
     "id": 204,
-    "topic": "General",
+    "topic": "Banking - Ngân hàng",
     "english": "Debit",
     "vietnamese": "Ghi nợ"
   },
   {
     "id": 205,
-    "topic": "General",
+    "topic": "Banking - Ngân hàng",
     "english": "Bank statement",
     "vietnamese": "Bảng sao kê ngân hàng"
   },
   {
     "id": 206,
-    "topic": "General",
+    "topic": "Banking - Ngân hàng",
     "english": "Fee",
     "vietnamese": "Phí"
   },
   {
     "id": 207,
-    "topic": "General",
+    "topic": "Banking - Ngân hàng",
     "english": "Savings account",
     "vietnamese": "Tài khoản tiết kiệm"
   },
   {
     "id": 208,
-    "topic": "General",
+    "topic": "Banking - Ngân hàng",
     "english": "Deposit slip",
     "vietnamese": "Phiếu gửi tiền"
   },
   {
     "id": 209,
-    "topic": "General",
+    "topic": "Banking - Ngân hàng",
     "english": "Overdraft",
     "vietnamese": "Thấu chi"
   },
   {
     "id": 210,
-    "topic": "General",
+    "topic": "Banking - Ngân hàng",
     "english": "Mortgage",
     "vietnamese": "Vay thế chấp"
   },
   {
     "id": 211,
-    "topic": "General",
+    "topic": "Accounting - Kế toán",
     "english": "Expense",
     "vietnamese": "Chi phí"
   },
   {
     "id": 212,
-    "topic": "General",
+    "topic": "Accounting - Kế toán",
     "english": "Revenue",
     "vietnamese": "Doanh thu"
   },
   {
     "id": 213,
-    "topic": "General",
+    "topic": "Accounting - Kế toán",
     "english": "Profit",
     "vietnamese": "Lợi nhuận"
   },
   {
     "id": 214,
-    "topic": "General",
+    "topic": "Accounting - Kế toán",
     "english": "Audit",
     "vietnamese": "Kiểm toán"
   },
   {
     "id": 215,
-    "topic": "General",
+    "topic": "Accounting - Kế toán",
     "english": "Budget",
     "vietnamese": "Ngân sách"
   },
   {
     "id": 216,
-    "topic": "General",
+    "topic": "Accounting - Kế toán",
     "english": "Liability",
     "vietnamese": "Nghĩa vụ, khoản nợ"
   },
   {
     "id": 217,
-    "topic": "General",
+    "topic": "Accounting - Kế toán",
     "english": "Expense report",
     "vietnamese": "Báo cáo chi phí"
   },
   {
     "id": 218,
-    "topic": "General",
+    "topic": "Accounting - Kế toán",
     "english": "Debt",
     "vietnamese": "Khoản nợ"
   },
   {
     "id": 219,
-    "topic": "General",
+    "topic": "Accounting - Kế toán",
     "english": "Ledger",
     "vietnamese": "Sổ cái"
   },
   {
     "id": 220,
-    "topic": "General",
+    "topic": "Accounting - Kế toán",
     "english": "Statement",
     "vietnamese": "Bản báo cáo"
   },
   {
     "id": 221,
-    "topic": "General",
+    "topic": "Accounting - Kế toán",
     "english": "Depreciation",
     "vietnamese": "Khấu hao"
   },
   {
     "id": 222,
-    "topic": "General",
+    "topic": "Restaurant - Nhà hàng",
     "english": "Menu",
     "vietnamese": "Thực đơn"
   },
   {
     "id": 223,
-    "topic": "General",
+    "topic": "Restaurant - Nhà hàng",
     "english": "Dish",
     "vietnamese": "Món ăn"
   },
   {
     "id": 224,
-    "topic": "General",
+    "topic": "Restaurant - Nhà hàng",
     "english": "Waiter/Waitress",
     "vietnamese": "Bồi bàn"
   },
   {
     "id": 225,
-    "topic": "General",
+    "topic": "Restaurant - Nhà hàng",
     "english": "Reservation",
     "vietnamese": "Đặt chỗ"
   },
   {
     "id": 226,
-    "topic": "General",
+    "topic": "Restaurant - Nhà hàng",
     "english": "Tip",
     "vietnamese": "Tiền boa"
   },
   {
     "id": 227,
-    "topic": "General",
+    "topic": "Restaurant - Nhà hàng",
     "english": "Table",
     "vietnamese": "Bàn ăn"
   },
   {
     "id": 228,
-    "topic": "General",
+    "topic": "Restaurant - Nhà hàng",
     "english": "Appetizer",
     "vietnamese": "Món khai vị"
   },
   {
     "id": 229,
-    "topic": "General",
+    "topic": "Restaurant - Nhà hàng",
     "english": "Main course",
     "vietnamese": "Món chính"
   },
   {
     "id": 230,
-    "topic": "General",
+    "topic": "Restaurant - Nhà hàng",
     "english": "Dessert",
     "vietnamese": "Món tráng miệng"
   },
   {
     "id": 231,
-    "topic": "General",
+    "topic": "Restaurant - Nhà hàng",
     "english": "Drink",
     "vietnamese": "Đồ uống"
   },
   {
     "id": 232,
-    "topic": "General",
+    "topic": "Restaurant - Nhà hàng",
     "english": "Wait",
     "vietnamese": "Chờ đợi"
   },
   {
     "id": 233,
-    "topic": "General",
+    "topic": "Restaurant - Nhà hàng",
     "english": "Order in",
     "vietnamese": "Đặt đồ ăn mang về"
   },
   {
     "id": 234,
-    "topic": "General",
+    "topic": "Restaurant - Nhà hàng",
     "english": "Takeout",
     "vietnamese": "Mang đi"
   },
   {
     "id": 235,
-    "topic": "General",
+    "topic": "Restaurant - Nhà hàng",
     "english": "Cook",
     "vietnamese": "Đầu bếp"
   },
   {
     "id": 236,
-    "topic": "General",
+    "topic": "Restaurant - Nhà hàng",
     "english": "Chef",
     "vietnamese": "Bếp trưởng"
   },
   {
     "id": 237,
-    "topic": "General",
+    "topic": "Restaurant - Nhà hàng",
     "english": "Portion",
     "vietnamese": "Phần ăn"
   },
   {
     "id": 238,
-    "topic": "General",
+    "topic": "Restaurant - Nhà hàng",
     "english": "Special",
     "vietnamese": "Đặc biệt"
   },
   {
     "id": 239,
-    "topic": "General",
+    "topic": "Shopping - Mua sắm",
     "english": "Shop",
     "vietnamese": "Cửa hàng"
   },
   {
     "id": 240,
-    "topic": "General",
+    "topic": "Shopping - Mua sắm",
     "english": "Sale",
     "vietnamese": "Khuyến mãi, bán hàng"
   },
   {
     "id": 241,
-    "topic": "General",
+    "topic": "Shopping - Mua sắm",
     "english": "Purchase",
     "vietnamese": "Mua sắm"
   },
   {
     "id": 242,
-    "topic": "General",
+    "topic": "Shopping - Mua sắm",
     "english": "Cart",
     "vietnamese": "Giỏ hàng"
   },
   {
     "id": 243,
-    "topic": "General",
+    "topic": "Shopping - Mua sắm",
     "english": "Store",
     "vietnamese": "Cửa hàng"
   },
   {
     "id": 244,
-    "topic": "General",
+    "topic": "Shopping - Mua sắm",
     "english": "Price tag",
     "vietnamese": "Mác giá"
   },
   {
     "id": 245,
-    "topic": "General",
+    "topic": "Shopping - Mua sắm",
     "english": "Bargain",
     "vietnamese": "Món hời, món rẻ"
   },
   {
     "id": 246,
-    "topic": "General",
+    "topic": "Shopping - Mua sắm",
     "english": "Shopping mall",
     "vietnamese": "Trung tâm mua sắm"
   }
