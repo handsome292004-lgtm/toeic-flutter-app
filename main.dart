@@ -409,8 +409,9 @@ class QuizScreen extends StatefulWidget {
 class _QuizScreenState extends State<QuizScreen> {
   final TextEditingController _controller = TextEditingController();
   VocabWord? _current;
-  String _message = '';
-  Color _messageColor = Colors.black54;
+String _message = '';
+Color _messageColor = Colors.black54;
+bool _locked = false;
 
   @override
   void initState() {
@@ -419,14 +420,15 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 
   void _next() {
-    if (widget.words.isEmpty) return;
-    setState(() {
-      _current = widget.words[widget.random.nextInt(widget.words.length)];
-      _controller.clear();
-      _message = '';
-      _messageColor = Colors.black54;
-    });
-  }
+  if (widget.words.isEmpty) return;
+  setState(() {
+    _current = widget.words[widget.random.nextInt(widget.words.length)];
+    _controller.clear();
+    _message = '';
+    _messageColor = Colors.black54;
+    _locked = false;
+  });
+}
 
   void _hint() {
     final ans = _current?.english.trim() ?? '';
@@ -440,30 +442,53 @@ class _QuizScreenState extends State<QuizScreen> {
       });
     }
   }
+  void _autoCheck(String value) {
+  if (_locked) return;
 
-  void _check() {
-    final word = _current;
-    if (word == null) return;
-    final user = _controller.text.trim().toLowerCase();
-    final ans = word.english.trim().toLowerCase();
+  final word = _current;
+  if (word == null) return;
 
-    if (user == ans) {
-      widget.onCorrect(word);
-      widget.onSpeak(word.english);
-      setState(() {
-        _message = '🎉 Chính xác! +1 điểm';
-        _messageColor = Colors.green;
-      });
-      Future.delayed(const Duration(milliseconds: 900), _next);
-    } else {
-      widget.onWrong();
-      setState(() {
-        _message = "❌ Sai rồi! Đáp án: ${word.english}";
-        _messageColor = Colors.red;
-      });
-      Future.delayed(const Duration(milliseconds: 1400), _next);
-    }
+  final user = value.trim().toLowerCase();
+  final ans = word.english.trim().toLowerCase();
+
+  if (user == ans && ans.isNotEmpty) {
+    _check();
   }
+}
+  void _check() {
+  if (_locked) return;
+
+  final word = _current;
+  if (word == null) return;
+
+  final user = _controller.text.trim().toLowerCase();
+  final ans = word.english.trim().toLowerCase();
+
+  if (user == ans) {
+    _locked = true;
+
+    widget.onCorrect(word);
+    widget.onSpeak(word.english);
+
+    setState(() {
+      _message = '🎉 Chính xác! +1 điểm';
+      _messageColor = Colors.green;
+    });
+
+    Future.delayed(const Duration(milliseconds: 900), _next);
+  } else {
+    _locked = true;
+
+    widget.onWrong();
+
+    setState(() {
+      _message = "❌ Sai rồi! Đáp án: ${word.english}";
+      _messageColor = Colors.red;
+    });
+
+    Future.delayed(const Duration(milliseconds: 1400), _next);
+  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -492,6 +517,7 @@ class _QuizScreenState extends State<QuizScreen> {
                 controller: _controller,
                 textAlign: TextAlign.center,
                 textInputAction: TextInputAction.done,
+                onChanged: _autoCheck,
                 onSubmitted: (_) => _check(),
                 decoration: InputDecoration(
                   hintText: 'Nhập từ tiếng Anh',
